@@ -1,0 +1,62 @@
+<h1>Choose Your Parts</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Component</th>
+        <th scope="col">Selection</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">CPU</th>
+        <td *ngIf="_pcparts.CPU; else addButton">{{_pcparts.CPU.name}}</td>
+        <td>{{_pcparts.CPU ? _pcparts.CPU.price_usd: null}}</td>
+      </tr>
+      <tr>
+        <th scope="row">CPU Cooler</th>
+        <td *ngIf="_pcparts.CPUCooler; else addButton">{{_pcparts.CPUCooler.name}}</td>
+        <td>{{_pcparts.CPUCooler ? _pcparts.CPUCooler.price_usd : null}}</td>
+      <tr>
+        <th scope="row">Motherboard</th>
+        <td>Larry</td>
+        <td>Larry</td>
+      </tr>
+      <tr>
+        <th scope="row">Memory</th>
+        <td>Larry</td>
+        <td>Larry</td>
+      </tr>
+      <tr>
+        <th scope="row">Storage</th>
+        <td>Larry</td>
+        <td>Larry</td>
+      </tr>
+      <tr>
+        <th scope="row">Video Card</th>
+        <td>Larry</td>
+        <td>Larry</td>
+      </tr>
+      <tr>
+        <th scope="row">Case</th>
+        <td>Larry</td>
+        <td>Larry</td>
+      </tr>
+      <tr>
+        <th scope="row">Power Supply</th>
+        <td>Larry</td>
+        <td>Larry</td>
+      </tr>
+      <tr>
+        <th scope="row">Operating System</th>
+        <td>Larry</td>
+        <td>Larry</td>
+      </tr>
+      <tr>
+        <th scope="row">Monitor</th>
+        <td>Larry</td>
+        <td>Larry</td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #addButton><td><button class="btn btn-primary">Add</button></td></ng-template>
