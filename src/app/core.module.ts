@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { PCPartsService } from './pcparts-list/pcparts.service';
 import { CPUCoolerService } from './products/cpu-cooler/cpu-cooler.service';
+import { MotherBoardService } from './products/motherboard/motherboard.service';
 import { CPUService } from './products/cpu/cpu.service';
 import { RecipeService } from './recipes/recipe.service';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
@@ -14,6 +15,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     CPUService,
     PCPartsService,
     CPUCoolerService,
+    MotherBoardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

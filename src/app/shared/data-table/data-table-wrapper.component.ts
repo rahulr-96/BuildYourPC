@@ -95,14 +95,22 @@ export class DataTableWrapperComponent implements OnInit{
 
   rowAction(actionFor: string, columnData:any){
     switch(actionFor){
+
       case products.PCPART_CPU:
         var objPcParts = new PCParts();
         objPcParts.CPU = columnData;
         this.pcPartsService.storePCparts(actionFor, objPcParts);
         break;
+
       case products.PCPART_CPUCOOLER:
         var objPcParts = new PCParts();
         objPcParts.CPUCooler = columnData;
+        this.pcPartsService.storePCparts(actionFor, objPcParts);
+        break;
+
+      case products.PCPART_MOTHERBOARD:
+        var objPcParts = new PCParts();
+        objPcParts.MotherBoard = columnData;
         this.pcPartsService.storePCparts(actionFor, objPcParts);
         break;
     }

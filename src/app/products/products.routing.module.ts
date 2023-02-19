@@ -4,6 +4,8 @@ import { CPUCoolerResolverService } from "./cpu-cooler/cpu-cooler-resolver.servi
 import { CPUCoolerComponent } from "./cpu-cooler/cpu-cooler.component";
 import { CPUResolverService } from "./cpu/cpu-resolver.service";
 import { CPUComponent } from "./cpu/cpu.component";
+import { MotherBoardResolverService } from "./motherboard/motherboard-resolver.service";
+import { MotherBoardComponent } from "./motherboard/motherboard.component";
 import { ProductsStartComponent } from "./products-start/products-start.component";
 import { ProductsComponent } from "./products.component";
 
@@ -12,7 +14,8 @@ const routes: Routes = [
         path: '', component: ProductsComponent, children:[
             {path: '', component: ProductsStartComponent},
             {path: 'cpu', component: CPUComponent, resolve: [CPUResolverService]},
-            {path: 'cpuCooler', component: CPUCoolerComponent, resolve: [CPUCoolerResolverService]}
+            {path: 'cpuCooler', component: CPUCoolerComponent, resolve: [CPUCoolerResolverService]},
+            {path: 'motherboard', component: MotherBoardComponent, resolve: [MotherBoardResolverService]}
         ]    
     },
 ];

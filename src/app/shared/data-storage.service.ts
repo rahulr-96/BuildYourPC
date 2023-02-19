@@ -8,6 +8,9 @@ import { CPU } from '../products/cpu/cpu.model';
 import { PCPartsService } from '../pcparts-list/pcparts.service';
 import { CPUCooler } from '../products/cpu-cooler/cpu-cooler.model';
 import { CPUCoolerService } from '../products/cpu-cooler/cpu-cooler.service';
+import { MotherBoard } from '../products/motherboard/motherboard.model';
+import { MotherBoardService } from '../products/motherboard/motherboard.service';
+import { PCParts } from '../pcparts-list/pcparts.model';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -16,6 +19,7 @@ export class DataStorageService {
     private recipeService: RecipeService,
     private cpuService: CPUService,
     private cpuCoolerService: CPUCoolerService,
+    private motherBoardService: MotherBoardService,
     private pcPartsService: PCPartsService
   ) {}
 
@@ -77,7 +81,22 @@ export class DataStorageService {
       );
   }
 
-  storePCParts() {
+  fetchMotherBoard(){
+    return this.http
+      .get<MotherBoard[]>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/motherboard.json')
+      .pipe( map((motherboard) => {
+          return motherboard.map((motherboard) => {
+            return {
+              ...motherboard
+            };
+          });
+        }), tap((motherboard) => {
+          this.motherBoardService.setMotherBoards(motherboard);
+        })
+      );
+  }
+
+  savePCParts() {
     const pcParts = this.pcPartsService.getPCparts();
     const userData: {
       email: string;
@@ -94,6 +113,20 @@ export class DataStorageService {
       .subscribe((response) => {
         console.log(response);
       });
+  }
+
+  fetchPCParts(){
+
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    return this.http
+      .get<PCParts>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/pcBuild/'+userData.id+'/pcParts.json')
+      .subscribe(data => this.pcPartsService.storeAllPCparts(data))
   }
   
 }

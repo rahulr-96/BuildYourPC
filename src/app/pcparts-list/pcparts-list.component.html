@@ -1,4 +1,18 @@
-<h1>Choose Your Parts</h1>
+
+<div class="row">
+  <div class=" mr-auto">
+    <h1>Choose Your Parts</h1>
+  </div>
+
+  <div class="ml-auto">
+    <button class="btn btn-primary" (click)="save()" >Save</button>
+  </div>
+  <div class="ml-auto">
+    <button class="btn btn-primary" (click)="fetch()" >Fetch</button>
+  </div>
+
+</div>
+
 <table class="table">
     <thead>
       <tr>
@@ -10,17 +24,17 @@
     <tbody>
       <tr>
         <th scope="row">CPU</th>
-        <td *ngIf="_pcparts.CPU; else addButton">{{_pcparts.CPU.name}}</td>
+        <td *ngIf="_pcparts.CPU; else addCPUButton">{{_pcparts.CPU.name}}</td>
         <td>{{_pcparts.CPU ? _pcparts.CPU.price_usd: null}}</td>
       </tr>
       <tr>
         <th scope="row">CPU Cooler</th>
-        <td *ngIf="_pcparts.CPUCooler; else addButton">{{_pcparts.CPUCooler.name}}</td>
+        <td *ngIf="_pcparts.CPUCooler; else addCPUCoolerButton">{{_pcparts.CPUCooler.name}}</td>
         <td>{{_pcparts.CPUCooler ? _pcparts.CPUCooler.price_usd : null}}</td>
       <tr>
         <th scope="row">Motherboard</th>
-        <td>Larry</td>
-        <td>Larry</td>
+        <td *ngIf="_pcparts.MotherBoard; else addMotherBoardButton">{{_pcparts.MotherBoard.name}}</td>
+        <td>{{_pcparts.MotherBoard ? _pcparts.MotherBoard.price_usd : null}}</td>
       </tr>
       <tr>
         <th scope="row">Memory</th>
@@ -59,4 +73,6 @@
       </tr>
     </tbody>
   </table>
-  <ng-template #addButton><td><button class="btn btn-primary">Add</button></td></ng-template>
+  <ng-template #addCPUButton><td><button class="btn btn-primary" (click)="addPcPart(1)">Add</button></td></ng-template>
+  <ng-template #addCPUCoolerButton><td><button class="btn btn-primary" (click)="addPcPart(2)">Add</button></td></ng-template>
+  <ng-template #addMotherBoardButton><td><button class="btn btn-primary" (click)="addPcPart(3)">Add</button></td></ng-template>
