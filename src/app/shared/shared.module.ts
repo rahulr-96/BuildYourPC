@@ -9,6 +9,7 @@ import { CurrencyConverterPipe } from "./currency-converter/currency-converter.p
 import { DataTableWrapperComponent } from "./data-table/data-table-wrapper.component";
 import { DataTableFilter } from "./data-table/data-table-filter.pipe";
 import { ReactiveFormsModule } from "@angular/forms";
+import{ThemeToggleComponent} from './theme-toggle/theme-toggle.component'
 
 @NgModule({
     declarations:[
@@ -19,6 +20,7 @@ import { ReactiveFormsModule } from "@angular/forms";
         CurrencyConverterPipe,
         DataTableWrapperComponent,
         DataTableFilter,
+        ThemeToggleComponent
     ],
     imports:[
         CommonModule,
@@ -34,7 +36,8 @@ import { ReactiveFormsModule } from "@angular/forms";
         CommonModule,
         NgxPaginationModule,
         DataTableWrapperComponent,
-        DataTableFilter
+        DataTableFilter,
+        ThemeToggleComponent
     ],
 })
 export class SharedModule{}
