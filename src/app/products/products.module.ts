@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { SharedModule } from "../shared/shared.module";
 import { CPUCoolerComponent } from "./cpu-cooler/cpu-cooler.component";
 import { CPUComponent } from "./cpu/cpu.component";
+import { MemoryComponent } from "./memory/memory.component";
 import { MotherBoardComponent } from "./motherboard/motherboard.component";
 import { ProductListComponent } from "./products-list/products-list.component";
 import { ProductsStartComponent } from "./products-start/products-start.component";
@@ -19,7 +20,8 @@ import { ProductsRoutingModule } from "./products.routing.module";
         ProductsStartComponent,
         CPUComponent,
         CPUCoolerComponent,
-        MotherBoardComponent
+        MotherBoardComponent,
+        MemoryComponent
     ],
     imports: [RouterModule, SharedModule, ReactiveFormsModule, ProductsRoutingModule]
 })

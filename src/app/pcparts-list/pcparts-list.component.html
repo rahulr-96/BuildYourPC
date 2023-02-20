@@ -38,8 +38,8 @@
       </tr>
       <tr>
         <th scope="row">Memory</th>
-        <td>Larry</td>
-        <td>Larry</td>
+        <td *ngIf="_pcparts.Memory; else addMemoryButton">{{_pcparts.Memory.name}}</td>
+        <td>{{_pcparts.Memory ? _pcparts.Memory.price_usd : null}}</td>
       </tr>
       <tr>
         <th scope="row">Storage</th>
@@ -76,3 +76,4 @@
   <ng-template #addCPUButton><td><button class="btn btn-primary" (click)="addPcPart(1)">Add</button></td></ng-template>
   <ng-template #addCPUCoolerButton><td><button class="btn btn-primary" (click)="addPcPart(2)">Add</button></td></ng-template>
   <ng-template #addMotherBoardButton><td><button class="btn btn-primary" (click)="addPcPart(3)">Add</button></td></ng-template>
+  <ng-template #addMemoryButton><td><button class="btn btn-primary" (click)="addPcPart(4)">Add</button></td></ng-template>

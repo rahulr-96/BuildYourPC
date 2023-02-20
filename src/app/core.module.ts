@@ -7,6 +7,7 @@ import { MotherBoardService } from './products/motherboard/motherboard.service';
 import { CPUService } from './products/cpu/cpu.service';
 import { RecipeService } from './recipes/recipe.service';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
+import { MemoryService } from './products/memory/memory.service';
 
 @NgModule({
   providers: [
@@ -16,6 +17,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     PCPartsService,
     CPUCoolerService,
     MotherBoardService,
+    MemoryService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

@@ -36,6 +36,9 @@ export class PCPartsListComponent implements OnDestroy{
             case 3:
                 this.router.navigate(['/products/motherboard'])
                 break;
+            case 4:
+                this.router.navigate(['/products/memory'])
+                break;               
         }
     }
 

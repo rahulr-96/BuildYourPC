@@ -113,6 +113,12 @@ export class DataTableWrapperComponent implements OnInit{
         objPcParts.MotherBoard = columnData;
         this.pcPartsService.storePCparts(actionFor, objPcParts);
         break;
+
+      case products.PCPART_MEMORY:
+        var objPcParts = new PCParts();
+        objPcParts.Memory = columnData;
+        this.pcPartsService.storePCparts(actionFor, objPcParts);
+        break;
     }
     
   }

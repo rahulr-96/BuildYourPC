@@ -4,6 +4,8 @@ import { CPUCoolerResolverService } from "./cpu-cooler/cpu-cooler-resolver.servi
 import { CPUCoolerComponent } from "./cpu-cooler/cpu-cooler.component";
 import { CPUResolverService } from "./cpu/cpu-resolver.service";
 import { CPUComponent } from "./cpu/cpu.component";
+import { MemoryResolverService } from "./memory/memory-resolver.service";
+import { MemoryComponent } from "./memory/memory.component";
 import { MotherBoardResolverService } from "./motherboard/motherboard-resolver.service";
 import { MotherBoardComponent } from "./motherboard/motherboard.component";
 import { ProductsStartComponent } from "./products-start/products-start.component";
@@ -15,7 +17,9 @@ const routes: Routes = [
             {path: '', component: ProductsStartComponent},
             {path: 'cpu', component: CPUComponent, resolve: [CPUResolverService]},
             {path: 'cpuCooler', component: CPUCoolerComponent, resolve: [CPUCoolerResolverService]},
-            {path: 'motherboard', component: MotherBoardComponent, resolve: [MotherBoardResolverService]}
+            {path: 'motherboard', component: MotherBoardComponent, resolve: [MotherBoardResolverService]},
+            {path: 'memory', component: MemoryComponent, resolve: [MemoryResolverService]}
+            
         ]    
     },
 ];

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { CPUCooler } from "../products/cpu-cooler/cpu-cooler.model";
 import { CPU } from "../products/cpu/cpu.model";
-import { PCPART_CPU, PCPART_CPUCOOLER, PCPART_MOTHERBOARD, Products } from "../products/products.type";
+import { PCPART_CPU, PCPART_CPUCOOLER, PCPART_MEMORY, PCPART_MOTHERBOARD, Products } from "../products/products.type";
 import { PCParts } from "./pcparts.model";
 
 @Injectable()
@@ -25,7 +25,12 @@ export class PCPartsService{
             case PCPART_MOTHERBOARD:
                 this.pcParts.MotherBoard = objPart.MotherBoard;
                 this.pcPartsChanged.next(this.pcParts);
-                break;  
+                break;
+
+            case PCPART_MEMORY:
+                this.pcParts.Memory = objPart.Memory;
+                this.pcPartsChanged.next(this.pcParts);
+                break; 
         }
     }
 
@@ -37,8 +42,5 @@ export class PCPartsService{
     getPCparts(){
         return this.pcParts;
     }
-
-    //todo
-    //add observable pcparts get
 
 }

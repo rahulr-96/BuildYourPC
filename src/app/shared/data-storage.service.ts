@@ -11,6 +11,8 @@ import { CPUCoolerService } from '../products/cpu-cooler/cpu-cooler.service';
 import { MotherBoard } from '../products/motherboard/motherboard.model';
 import { MotherBoardService } from '../products/motherboard/motherboard.service';
 import { PCParts } from '../pcparts-list/pcparts.model';
+import { Memory } from '../products/memory/memory.model';
+import { MemoryService } from '../products/memory/memory.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -20,6 +22,7 @@ export class DataStorageService {
     private cpuService: CPUService,
     private cpuCoolerService: CPUCoolerService,
     private motherBoardService: MotherBoardService,
+    private memoryService: MemoryService,
     private pcPartsService: PCPartsService
   ) {}
 
@@ -92,6 +95,21 @@ export class DataStorageService {
           });
         }), tap((motherboard) => {
           this.motherBoardService.setMotherBoards(motherboard);
+        })
+      );
+  }
+
+  fetchMemory(){
+    return this.http
+      .get<Memory[]>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/memory.json')
+      .pipe( map((memory) => {
+          return memory.map((memory) => {
+            return {
+              ...memory
+            };
+          });
+        }), tap((memory) => {
+          this.memoryService.setMemorys(memory);
         })
       );
   }
