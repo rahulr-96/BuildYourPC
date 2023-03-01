@@ -1,12 +1,12 @@
-export class Memory {
+export class Storage {
   constructor(
-    public color: string,
     public form_factor: string,
-    public modules: string,
-    public speed: string,
+    public cache: string,
+    public type: string,
     public name: string,
     public price_usd: number,
     public rating: number,
     public rating_count: number,
+    public capacity: string,
   ){}
 }

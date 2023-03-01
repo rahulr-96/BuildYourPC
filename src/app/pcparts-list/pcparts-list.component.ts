@@ -5,24 +5,35 @@ import { PCPartsService } from "./pcparts.service";
 import { Router } from "@angular/router";
 import { DataStorageService } from "../shared/data-storage.service";
 import { Subscription } from "rxjs";
+import { PCPART_CASE, PCPART_CPU, PCPART_CPUCOOLER, PCPART_MEMORY, PCPART_MOTHERBOARD, PCPART_POWERSUPPLY, PCPART_STORAGE, PCPART_VIDEOCARD } from "../products/products.type";
 
 @Component({
     selector:'app-pcparts-list',
     templateUrl:'./pcparts-list.component.html'
 })
-export class PCPartsListComponent implements OnDestroy{  
+export class PCPartsListComponent implements OnDestroy{
 
     subscription: Subscription;
-    
+
     constructor(private pcPartsService: PCPartsService, private router:Router, private dataStorageService: DataStorageService){}
 
-    _pcparts: PCParts
+    _pcparts: PCParts;
+
+    total: number = 0;
 
     ngOnInit(){
+
+        //this.fetch();
+
         this._pcparts = this.pcPartsService.getPCparts();
+
+        this.findTotal();
+
         this.subscription = this.pcPartsService.pcPartsChanged.subscribe(data =>{
-            this._pcparts=data
+            this._pcparts=data;
+            this.findTotal();
         })
+
     }
 
     addPcPart(rowIndex: number){
@@ -38,7 +49,19 @@ export class PCPartsListComponent implements OnDestroy{
                 break;
             case 4:
                 this.router.navigate(['/products/memory'])
-                break;               
+                break;
+            case 5:
+                this.router.navigate(['/products/storage'])
+                break;
+            case 6:
+                this.router.navigate(['/products/videocard'])
+                break;
+            case 7:
+                this.router.navigate(['/products/case'])
+                break;
+            case 8:
+                this.router.navigate(['/products/powersupply'])
+                break;
         }
     }
 
@@ -52,5 +75,79 @@ export class PCPartsListComponent implements OnDestroy{
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
+    }
+
+    findTotal(){
+
+        this.total = 0;
+        let i: number = 0;
+
+          if(this._pcparts.CPU){
+            this.total += this._pcparts.CPU.price_usd;
+          }
+          if(this._pcparts.CPUCooler){
+            this.total += this._pcparts.CPUCooler.price_usd;
+          }
+          if(this._pcparts.Case){
+            this.total += this._pcparts.Case.price_usd;
+          }
+          if(this._pcparts.Memory){
+            this.total += this._pcparts.Memory.price_usd;
+          }
+          if(this._pcparts.MotherBoard){
+            this.total += this._pcparts.MotherBoard.price_usd;
+          }
+          if(this._pcparts.Powersupply){
+            this.total += this._pcparts.Powersupply.price_usd;
+
+          }
+          if(this._pcparts.Storage){
+            this.total += this._pcparts.Storage.price_usd;
+
+          }
+          if(this._pcparts.Videocard){
+            this.total += this._pcparts.Videocard.price_usd;
+
+          }
+
+    }
+
+    removePart(rowIndex: number){
+      switch(rowIndex){
+        case 1:
+            this._pcparts.CPU = null;
+            this.pcPartsService.storePCparts(PCPART_CPU, this._pcparts);
+            break;
+      case 2:
+            this._pcparts.CPUCooler = null;
+            this.pcPartsService.storePCparts(PCPART_CPUCOOLER, this._pcparts);
+            break;
+      case 3:
+            this._pcparts.MotherBoard = null;
+            this.pcPartsService.storePCparts(PCPART_MOTHERBOARD, this._pcparts);
+            break;
+      case 4:
+            this._pcparts.Memory = null;
+            this.pcPartsService.storePCparts(PCPART_MEMORY, this._pcparts);
+            break;
+      case 5:
+            this._pcparts.Storage = null;
+            this.pcPartsService.storePCparts(PCPART_STORAGE, this._pcparts);
+            break;
+        case 6:
+            this._pcparts.Videocard = null;
+            this.pcPartsService.storePCparts(PCPART_VIDEOCARD, this._pcparts);
+            break;
+        case 7:
+            this._pcparts.Case = null;
+            this.pcPartsService.storePCparts(PCPART_CASE, this._pcparts);
+            break;
+        case 8:
+            this._pcparts.Powersupply = null;
+            this.pcPartsService.storePCparts(PCPART_POWERSUPPLY, this._pcparts);
+            break;
+      }
+
+      this.findTotal();
     }
 }

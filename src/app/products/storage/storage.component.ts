@@ -2,48 +2,43 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { Memory } from "src/app/products/memory/memory.model";
+import { Storage } from "src/app/products/storage/storage.model";
 import { DataTableType, rowActions } from "src/app/shared/data-table/datatabletype.model";
-import { PCPART_MEMORY } from "../products.type";
-import { MemoryService } from "./memory.service";
+import { PCPART_STORAGE } from "../products.type";
+import { StorageService } from "./storage.service";
 
 @Component({
-    selector:'app-Memory',
-    templateUrl:'./memory.component.html'
+    selector:'app-Storage',
+    templateUrl:'./storage.component.html'
 })
-export class MemoryComponent implements OnInit, OnDestroy{
-    Memorys: Memory[];
+export class StorageComponent implements OnInit, OnDestroy{
+    Storages: Storage[];
     subscription: Subscription;
     
     tableConfig: DataTableType;
 
-    constructor(private MemoryService: MemoryService){}
+    constructor(private StorageService: StorageService){}
 
     ngOnInit(): void {
 
-        this.subscription = this.MemoryService.MemorysChanged.subscribe((data: Memory[])=>{
-            this.Memorys = data;
+        this.subscription = this.StorageService.StoragesChanged.subscribe((data: Storage[])=>{
+            this.Storages = data;
         })
         
     
-        this.Memorys= this.MemoryService.getMemorys();
-
-        // this.filter.valueChanges.pipe(
-        //     debounceTime(500), // delay 1000 msec
-        //     distinctUntilChanged()).subscribe((val: string )=> {
-        //         this.searchfilter(val);
-        //     })
+        this.Storages= this.StorageService.getStorages();
         
 
         this.tableConfig = {
             columns: [
               {title: "Name", dataProperty: "name", sortable: true, sortOrder: true, filterable: true,},
               {title: "Price", dataProperty: "price_usd", sortable: true, sortOrder: true, filterable: false},
-              {title: "Speed", dataProperty: "speed", sortable: false, sortOrder: true, filterable: false},
+              {title: "Capacity", dataProperty: "capacity", sortable: false, sortOrder: true, filterable: false},
+              {title: "Type", dataProperty: "type", sortable: false, sortOrder: true, filterable: false},
               {title: "", dataProperty: "ROW_ACTIONS", sortable: false,sortOrder: false, filterable: false},
             ],
             rowActions:[
-                {label: 'Add', actionFor:PCPART_MEMORY}
+                {label: 'Add', actionFor:PCPART_STORAGE}
             ]
           }
     }

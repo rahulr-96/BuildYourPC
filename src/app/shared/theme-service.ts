@@ -12,8 +12,8 @@ export interface ThemeObject {
 export class ThemeService {
 
   initialSetting: ThemeObject = {
-    oldValue: null, 
-    newValue: 'bootstrap'
+    oldValue: null,
+    newValue: 'bootstrap-dark'
   };
 
   themeSelection: BehaviorSubject<ThemeObject> =  new BehaviorSubject<ThemeObject>(this.initialSetting);
@@ -24,7 +24,7 @@ export class ThemeService {
 
     this.themeSelection.next(
       {
-        oldValue: this.themeSelection.value.newValue, 
+        oldValue: this.themeSelection.value.newValue,
         newValue: theme
       });
   }

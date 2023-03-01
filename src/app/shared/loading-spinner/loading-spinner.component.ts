@@ -1,9 +1,33 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {delay} from 'rxjs/operators';
+import {LoadingService} from './loading-spinner.service';
 
 @Component({
   selector: 'app-loading-spinner',
-  template:
-    '<div class="loadingio-spinner-ripple-y4qhtrtgq1r"><div class="ldio-8ddp747z7hb"><div></div><div></div></div></div>',
+  templateUrl:'./loading-spinner.component.html',
   styleUrls: ['./loading-spinner.component.css'],
 })
-export class LoadingSpinnerComponent {}
+export class LoadingSpinnerComponent {
+  loading: boolean = false;
+
+  constructor(
+    private _loading: LoadingService
+  ){ }
+
+  ngOnInit() {
+    this.listenToLoading();
+  }
+
+  /**
+   * Listen to the loadingSub property in the LoadingService class. This drives the
+   * display of the loading spinner.
+   */
+  listenToLoading(): void {
+    this._loading.loadingSub
+      .pipe(delay(0)) // This prevents a ExpressionChangedAfterItHasBeenCheckedError for subsequent requests
+      .subscribe((loading) => {
+        this.loading = loading;
+      });
+  }
+
+}

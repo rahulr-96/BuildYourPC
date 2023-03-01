@@ -2,31 +2,31 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { Memory } from "src/app/products/memory/memory.model";
+import { Videocard } from "src/app/products/videocard/videocard.model";
 import { DataTableType, rowActions } from "src/app/shared/data-table/datatabletype.model";
-import { PCPART_MEMORY } from "../products.type";
-import { MemoryService } from "./memory.service";
+import { PCPART_MOTHERBOARD, PCPART_VIDEOCARD } from "../products.type";
+import { VideocardService } from "./videocard.service";
 
 @Component({
-    selector:'app-Memory',
-    templateUrl:'./memory.component.html'
+    selector:'app-Videocard',
+    templateUrl:'./videocard.component.html'
 })
-export class MemoryComponent implements OnInit, OnDestroy{
-    Memorys: Memory[];
+export class VideocardComponent implements OnInit, OnDestroy{
+    Videocards: Videocard[];
     subscription: Subscription;
     
     tableConfig: DataTableType;
 
-    constructor(private MemoryService: MemoryService){}
+    constructor(private VideocardService: VideocardService){}
 
     ngOnInit(): void {
 
-        this.subscription = this.MemoryService.MemorysChanged.subscribe((data: Memory[])=>{
-            this.Memorys = data;
+        this.subscription = this.VideocardService.VideocardsChanged.subscribe((data: Videocard[])=>{
+            this.Videocards = data;
         })
         
     
-        this.Memorys= this.MemoryService.getMemorys();
+        this.Videocards= this.VideocardService.getVideocards();
 
         // this.filter.valueChanges.pipe(
         //     debounceTime(500), // delay 1000 msec
@@ -39,11 +39,11 @@ export class MemoryComponent implements OnInit, OnDestroy{
             columns: [
               {title: "Name", dataProperty: "name", sortable: true, sortOrder: true, filterable: true,},
               {title: "Price", dataProperty: "price_usd", sortable: true, sortOrder: true, filterable: false},
-              {title: "Speed", dataProperty: "speed", sortable: false, sortOrder: true, filterable: false},
+              {title: "Chipset", dataProperty: "chipset", sortable: false, sortOrder: true, filterable: false},
               {title: "", dataProperty: "ROW_ACTIONS", sortable: false,sortOrder: false, filterable: false},
             ],
             rowActions:[
-                {label: 'Add', actionFor:PCPART_MEMORY}
+                {label: 'Add', actionFor:PCPART_VIDEOCARD}
             ]
           }
     }

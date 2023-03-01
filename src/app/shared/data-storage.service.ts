@@ -1,7 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Recipe } from '../recipes/recipe.model';
-import { RecipeService } from '../recipes/recipe.service';
 import { map, tap } from 'rxjs/operators';
 import { CPUService } from '../products/cpu/cpu.service';
 import { CPU } from '../products/cpu/cpu.model';
@@ -13,46 +11,31 @@ import { MotherBoardService } from '../products/motherboard/motherboard.service'
 import { PCParts } from '../pcparts-list/pcparts.model';
 import { Memory } from '../products/memory/memory.model';
 import { MemoryService } from '../products/memory/memory.service';
+import { Storage } from '../products/storage/storage.model';
+import { StorageService } from '../products/storage/storage.service';
+import { Videocard } from '../products/videocard/videocard.model';
+import { VideocardService } from '../products/videocard/videocard.service';
+import { Case } from '../products/case/case.model';
+import { CaseService } from '../products/case/case.service';
+import { Powersupply } from '../products/powersupply/powersupply.model';
+import { PowersupplyService } from '../products/powersupply/powersupply.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
   constructor(
     private http: HttpClient,
-    private recipeService: RecipeService,
     private cpuService: CPUService,
     private cpuCoolerService: CPUCoolerService,
     private motherBoardService: MotherBoardService,
     private memoryService: MemoryService,
+    private storageService: StorageService,
+    private videocardService: VideocardService,
+    private caseService: CaseService,
+    private powersupplyService: PowersupplyService,
     private pcPartsService: PCPartsService
   ) {}
 
-  storeRecipes() {
-    const recipes = this.recipeService.getRecipes();
-    this.http
-      .put(
-        'https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json',
-        recipes
-      )
-      .subscribe((response) => {
-        console.log(response);
-      });
-  }
 
-  fetchRecipes() {
-    return this.http
-      .get<Recipe[]>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json')
-      .pipe( map((recipes) => {
-          return recipes.map((recipe) => {
-            return {
-              ...recipe,
-              ingredients: recipe.ingredients ? recipe.ingredients : [],
-            };
-          });
-        }), tap((recipes) => {
-          this.recipeService.setRecipes(recipes);
-        })
-      );
-  }
 
   fetchCPU(){
     return this.http
@@ -68,7 +51,7 @@ export class DataStorageService {
         })
       );
   }
-  
+
   fetchCPUCooler(){
     return this.http
       .get<CPUCooler[]>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/cpu-cooler.json')
@@ -114,6 +97,66 @@ export class DataStorageService {
       );
   }
 
+  fetchStorage(){
+    return this.http
+      .get<Storage[]>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/storage.json')
+      .pipe( map((storage) => {
+          return storage.map((storage) => {
+            return {
+              ...storage
+            };
+          });
+        }), tap((storage) => {
+          this.storageService.setStorages(storage);
+        })
+      );
+  }
+
+  fetchVideocard(){
+    return this.http
+      .get<Videocard[]>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/videocard.json')
+      .pipe( map((videocard) => {
+          return videocard.map((videocard) => {
+            return {
+              ...videocard
+            };
+          });
+        }), tap((videocard) => {
+          this.videocardService.setVideocards(videocard);
+        })
+      );
+  }
+
+  fetchCase(){
+    return this.http
+      .get<Case[]>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/case.json')
+      .pipe( map((Case) => {
+          return Case.map((Case) => {
+            return {
+              ...Case
+            };
+          });
+        }), tap((Case) => {
+          this.caseService.setCases(Case);
+        })
+      );
+  }
+
+  fetchPowersupply(){
+    return this.http
+      .get<Powersupply[]>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/powersupply.json')
+      .pipe( map((powersupply) => {
+          return powersupply.map((powersupply) => {
+            return {
+              ...powersupply
+            };
+          });
+        }), tap((powersupply) => {
+          this.powersupplyService.setPowersupplys(powersupply);
+        })
+      );
+  }
+
   savePCParts() {
     const pcParts = this.pcPartsService.getPCparts();
     const userData: {
@@ -144,7 +187,13 @@ export class DataStorageService {
 
     return this.http
       .get<PCParts>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/pcBuild/'+userData.id+'/pcParts.json')
-      .subscribe(data => this.pcPartsService.storeAllPCparts(data))
+      // .subscribe(data => this.pcPartsService.storeAllPCparts(data))
+      .pipe(map((pcparts) => {
+        return pcparts
+      }), tap((pcparts) => {
+        this.pcPartsService.storeAllPCparts(pcparts);
+      })
+    );
   }
-  
+
 }
