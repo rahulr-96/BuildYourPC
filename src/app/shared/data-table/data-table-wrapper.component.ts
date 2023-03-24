@@ -4,8 +4,8 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, startWith } from 'rxjs/operators';
-import { PCParts } from 'src/app/pcparts-list/pcparts.model';
-import { PCPartsService } from 'src/app/pcparts-list/pcparts.service';
+import { PCParts } from 'src/app/pcparts/pcparts.model';
+import { PCPartsService } from 'src/app/pcparts/pcparts.service';
 import * as products from 'src/app/products/products.type';
 import { Column, DataTableType } from './datatabletype.model';
 

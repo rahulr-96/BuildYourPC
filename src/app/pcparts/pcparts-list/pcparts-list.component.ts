@@ -1,11 +1,11 @@
 import { Component, OnDestroy } from "@angular/core";
-import { CPU } from "../products/cpu/cpu.model";
-import { PCParts } from "./pcparts.model";
-import { PCPartsService } from "./pcparts.service";
+import { CPU } from "../../products/cpu/cpu.model";
+import { PCParts } from "../pcparts.model";
+import { PCPartsService } from "../pcparts.service";
 import { Router } from "@angular/router";
-import { DataStorageService } from "../shared/data-storage.service";
+import { DataStorageService } from "../../shared/data-storage.service";
 import { Subscription } from "rxjs";
-import { PCPART_CASE, PCPART_CPU, PCPART_CPUCOOLER, PCPART_MEMORY, PCPART_MOTHERBOARD, PCPART_POWERSUPPLY, PCPART_STORAGE, PCPART_VIDEOCARD } from "../products/products.type";
+import { PCPART_CASE, PCPART_CPU, PCPART_CPUCOOLER, PCPART_MEMORY, PCPART_MOTHERBOARD, PCPART_POWERSUPPLY, PCPART_STORAGE, PCPART_VIDEOCARD } from "../../products/products.type";
 
 @Component({
     selector:'app-pcparts-list',

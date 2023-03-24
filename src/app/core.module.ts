@@ -1,7 +1,7 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { PCPartsService } from './pcparts-list/pcparts.service';
+import { PCPartsService } from './pcparts/pcparts.service';
 import { CPUCoolerService } from './products/cpu-cooler/cpu-cooler.service';
 import { MotherBoardService } from './products/motherboard/motherboard.service';
 import { CPUService } from './products/cpu/cpu.service';

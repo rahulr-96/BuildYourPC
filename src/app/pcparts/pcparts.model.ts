@@ -10,13 +10,13 @@ import { Videocard } from "../products/videocard/videocard.model";
 
 
 export class PCParts{
-    CPUCooler: CPUCooler; 
-    CPU: CPU;   
+    CPUCooler: CPUCooler;
+    CPU: CPU;
     MotherBoard: MotherBoard;
     Memory: Memory;
     Storage: Storage;
     Videocard: Videocard;
     Case: Case;
     Powersupply: Powersupply;
-      
+
 }
