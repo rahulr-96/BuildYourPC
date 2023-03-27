@@ -1,7 +1,34 @@
 
 <nav class="navbar navbar-expand-lg border sticky-top" [ngClass]="Theme == 'bootstrap-dark'? 'bg-dark':'bg-light'">
-  <i data-toggle="button" class="bi bi-list d-md-none">
-        </i>
+  <div class="dropdown">
+    <i type="button" data-toggle="dropdown" class="bi bi-list dropdown-toggle d-md-none" id="dropdownMenuButton">
+    </i>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="nav-link" routerLink="/products">Products</a>
+      <a class="nav-link" routerLink="/list">Build</a>
+    </div>
+  </div>
+
+        <!-- <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div> -->
+          <!-- <i style="cursor: pointer" class="dropdown-toggle bi bi-list" appDropdown role="button"
+            ></i>
+          <ul class="dropdown-menu">
+            <li>
+              <a style="cursor: pointer">Save Data</a>
+            </li>
+            <li>
+              <a style="cursor: pointer" >Fetch Data</a>
+            </li>
+          </ul> -->
   <a class="navbar-brand d-none d-md-inline" href="#">Build Your PC</a>
   <ul class="navbar-nav mr-auto d-none d-md-flex">
     <li class=" nav-item " routerLinkActive="active">
@@ -21,7 +48,7 @@
   </div> -->
   <ul class="navbar-nav flex-row">
     <li class=" nav-item " routerLinkActive="active">
-      <a class="nav-link" routerLink="/auth">Authenticate</a>
+      <a class="nav-link" routerLink="/auth">Login</a>
     </li>
     <li class=" nav-item ">
       <app-theme-toggle></app-theme-toggle>

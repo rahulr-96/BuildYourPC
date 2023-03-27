@@ -10,6 +10,17 @@ import { DataTableWrapperComponent } from "./data-table/data-table-wrapper.compo
 import { DataTableFilter } from "./data-table/data-table-filter.pipe";
 import { ReactiveFormsModule } from "@angular/forms";
 import{ThemeToggleComponent} from './theme-toggle/theme-toggle.component'
+import {
+  ROUTE_ANIMATIONS_ELEMENTS,
+  routeAnimations
+} from './animations/route.animations';
+import { AnimationsService } from './animations/animations.service';
+
+export {
+  routeAnimations,
+  ROUTE_ANIMATIONS_ELEMENTS,
+  AnimationsService
+};
 
 @NgModule({
     declarations:[
@@ -25,7 +36,7 @@ import{ThemeToggleComponent} from './theme-toggle/theme-toggle.component'
     imports:[
         CommonModule,
         NgxPaginationModule,
-        ReactiveFormsModule 
+        ReactiveFormsModule
     ],
     exports:[
         AlertComponent,

@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { CPUCooler } from "src/app/products/cpu-cooler/cpu-cooler.model";
 import { DataTableType, rowActions } from "src/app/shared/data-table/datatabletype.model";
+import { ROUTE_ANIMATIONS_ELEMENTS } from "src/app/shared/shared.module";
 import { PCPART_CPUCOOLER } from "../products.type";
 import { CPUCoolerService } from "./cpu-cooler.service";
 
@@ -12,9 +13,10 @@ import { CPUCoolerService } from "./cpu-cooler.service";
     templateUrl:'./cpu-cooler.component.html'
 })
 export class CPUCoolerComponent implements OnInit, OnDestroy{
+  routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
     CPUCoolers: CPUCooler[];
     subscription: Subscription;
-    
+
     tableConfig: DataTableType;
 
     constructor(private CPUCoolerService: CPUCoolerService){}
@@ -24,8 +26,8 @@ export class CPUCoolerComponent implements OnInit, OnDestroy{
         this.subscription = this.CPUCoolerService.CPUCoolersChanged.subscribe((data: CPUCooler[])=>{
             this.CPUCoolers = data;
         })
-        
-    
+
+
         this.CPUCoolers= this.CPUCoolerService.getCPUCoolers();
 
         // this.filter.valueChanges.pipe(
@@ -33,7 +35,7 @@ export class CPUCoolerComponent implements OnInit, OnDestroy{
         //     distinctUntilChanged()).subscribe((val: string )=> {
         //         this.searchfilter(val);
         //     })
-        
+
 
         this.tableConfig = {
             columns: [

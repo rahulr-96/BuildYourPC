@@ -7,7 +7,7 @@ import { CPUCoolerService } from "./cpu-cooler.service";
 
 @Injectable({ providedIn: 'root' })
 export class CPUCoolerResolverService implements Resolve<CPUCooler[]> {
-    
+
     constructor(private dataStorageService: DataStorageService, private CPUCoolerService: CPUCoolerService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): CPUCooler[] | Observable<CPUCooler[]> | Promise<CPUCooler[]> {
@@ -18,6 +18,6 @@ export class CPUCoolerResolverService implements Resolve<CPUCooler[]> {
         else{
            return CPUCoolers;
         }
-        
+
     }
 }

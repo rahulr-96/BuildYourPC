@@ -4,7 +4,7 @@ import { PCPartsListComponent } from "./pcparts-list.component";
 
 const routes: Routes = [
     {
-        path: '', component: PCPartsListComponent    
+        path: '', component: PCPartsListComponent
     },
 ];
 

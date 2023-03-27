@@ -7,12 +7,15 @@ import { debounceTime, startWith } from 'rxjs/operators';
 import { PCParts } from 'src/app/pcparts/pcparts.model';
 import { PCPartsService } from 'src/app/pcparts/pcparts.service';
 import * as products from 'src/app/products/products.type';
+import { routeAnimations } from '../animations/route.animations';
+
 import { Column, DataTableType } from './datatabletype.model';
 
 @Component({
   selector: 'data-table-wrapper',
   templateUrl: './data-table-wrapper.component.html',
   animations: [
+    routeAnimations,
     trigger('contentExpansion', [
       state('collapsed', style({ width: '0' })),
       state('expanded', style({ width: '*' })),
@@ -21,6 +24,7 @@ import { Column, DataTableType } from './datatabletype.model';
         animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
       ),
     ]),
+
   ],
 })
 export class DataTableWrapperComponent implements OnInit{

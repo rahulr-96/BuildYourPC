@@ -7,9 +7,11 @@ import { DataStorageService } from "../../shared/data-storage.service";
 import { Subscription } from "rxjs";
 import { PCPART_CASE, PCPART_CPU, PCPART_CPUCOOLER, PCPART_MEMORY, PCPART_MOTHERBOARD, PCPART_POWERSUPPLY, PCPART_STORAGE, PCPART_VIDEOCARD } from "../../products/products.type";
 
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../shared/shared.module';
 @Component({
     selector:'app-pcparts-list',
-    templateUrl:'./pcparts-list.component.html'
+    templateUrl:'./pcparts-list.component.html',
+    animations: [routeAnimations]
 })
 export class PCPartsListComponent implements OnDestroy{
 

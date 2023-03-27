@@ -1,11 +1,14 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { ThemeService } from './shared/theme-service';
+import {routeAnimations} from "./shared/shared.module";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [routeAnimations]
 })
 export class AppComponent implements OnInit {
 
@@ -19,5 +22,10 @@ export class AppComponent implements OnInit {
       this.renderer.addClass(document.body, theme.newValue);
     })
   }
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet &&
+      outlet.activatedRouteData &&
+      outlet.activatedRouteData['title'];
+   }
 }
 

@@ -1,21 +1,20 @@
 
-<div class="row">
   <div class=" mr-auto">
     <h1>Choose Your Parts</h1>
-  </div>
 
-  <div class="ml-auto">
+  <!-- <div class="ml-auto">
     <button class="btn btn-primary" (click)="save()" >Save</button>
-  </div>
+  </div> -->
 </div>
 
-<table class="table">
+<div class="table-responsive" [@routeAnimations]>
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">Component</th>
         <th scope="col">Selection</th>
         <th scope="col">Price</th>
-        <th scope="col"></th>
+        <th scope="col"><button class="btn btn-primary" (click)="save()" >Save</button></th>
       </tr>
     </thead>
     <tbody>
@@ -82,6 +81,8 @@
       </tr>
     </tfoot>
   </table>
+</div>
+
   <ng-template #addCPUButton><td><button class="btn btn-primary" (click)="addPcPart(1)">Add</button></td></ng-template>
   <ng-template #addCPUCoolerButton><td><button class="btn btn-primary" (click)="addPcPart(2)">Add</button></td></ng-template>
   <ng-template #addMotherBoardButton><td><button class="btn btn-primary" (click)="addPcPart(3)">Add</button></td></ng-template>

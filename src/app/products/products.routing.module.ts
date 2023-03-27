@@ -31,8 +31,8 @@ const routes: Routes = [
             {path: 'videocard', component: VideocardComponent, resolve: [VideocardResolverService]},
             {path: 'case', component: CaseComponent, resolve: [CaseResolverService]},
             {path: 'powersupply', component: PowersupplyComponent, resolve: [PowersupplyResolverService]}
-            
-        ]    
+
+        ]
     },
 ];
 

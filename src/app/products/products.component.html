@@ -2,7 +2,7 @@
     <div class="col-md-3 border">
         <app-products-list></app-products-list>
     </div>
-    <div class="col-md-9 border">
-        <router-outlet></router-outlet>  
+    <div class="col-md-9 border" [@routeAnimations]>
+        <router-outlet #o="outlet"></router-outlet>
     </div>
 </div>
