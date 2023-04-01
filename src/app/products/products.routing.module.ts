@@ -32,7 +32,8 @@ const routes: Routes = [
             {path: 'case', component: CaseComponent, resolve: [CaseResolverService]},
             {path: 'powersupply', component: PowersupplyComponent, resolve: [PowersupplyResolverService]}
 
-        ]
+        ],
+
     },
 ];
 

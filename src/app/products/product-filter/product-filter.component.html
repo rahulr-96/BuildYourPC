@@ -1,0 +1,21 @@
+
+<div class="accordion" id="accordionExample" [@routeAnimations]>
+  <div  class="card" *ngFor="let button of lstFilterCriteria">
+    <div class="card-header">
+      <h2 class="mb-0">
+        <button  class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"(mouseup)="button.expand = !button.expand">
+          {{button.name}}
+        </button>
+      </h2>
+    </div>
+
+    <ng-container  class="collapse show" data-parent="#accordionExample" *ngIf="button?.expand">
+        <div class="card-body">
+          <li *ngFor="let value of button.values">
+            {{value}}
+          </li>
+        </div>
+    </ng-container>
+  </div>
+</div>
+

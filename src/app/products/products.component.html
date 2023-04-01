@@ -1,8 +1,21 @@
-<div class="row">
-    <div class="col-md-3 border">
-        <app-products-list></app-products-list>
+
+  <div class="row mr-0">
+    <div class="col-md-3 position-fixed">
+      <div class=" clearfix" role="group" >
+        <button  (click)="toggle();" type="button" class="btn btn-link mr-3 float-left" >
+          <span class="bi bi-arrow-return-left "></span>
+        </button>
+        <button  (click)="toggle();" type="button" class="btn btn-link mr-3 float-right" >
+          <span class="bi bi-arrow-return-right "></span>
+        </button>
+      </div>
+        <app-products-list *ngIf="!(isFilter$ | async); else filter "></app-products-list>
+        <ng-template #filter>
+          <app-product-filter></app-product-filter>
+        </ng-template>
     </div>
-    <div class="col-md-9 border" [@routeAnimations]>
-        <router-outlet #o="outlet"></router-outlet>
+    <div class="col-md-9 border-left" style="margin-left: 320px;">
+        <router-outlet ></router-outlet>
     </div>
 </div>
+

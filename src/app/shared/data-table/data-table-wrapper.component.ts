@@ -1,13 +1,14 @@
 import {style,transition,trigger,animate,state,} from '@angular/animations';
-import {Component,ElementRef,Input,OnInit,ViewChild,} from '@angular/core';
+import {Component,ComponentFactoryResolver,ElementRef,Input,OnInit,ViewChild,} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { debounceTime, startWith } from 'rxjs/operators';
 import { PCParts } from 'src/app/pcparts/pcparts.model';
 import { PCPartsService } from 'src/app/pcparts/pcparts.service';
 import * as products from 'src/app/products/products.type';
 import { routeAnimations } from '../animations/route.animations';
+import { PlaceholderDirective } from '../placeholder/placeholder.directive';
 
 import { Column, DataTableType } from './datatabletype.model';
 
@@ -49,8 +50,9 @@ export class DataTableWrapperComponent implements OnInit{
 
   tableFilter = new FormControl();
   @ViewChild('testInput', { static: false }) tableFilterElem: ElementRef;
-
-  constructor(private pcPartsService: PCPartsService, private router:Router) {}
+  @ViewChild(PlaceholderDirective, {static: false}) alertHost: PlaceholderDirective;
+  private closeSub: Subscription;
+  constructor(private pcPartsService: PCPartsService, private router:Router,private componentFactoryResolver: ComponentFactoryResolver) {}
 
   public ngOnInit(): void {
 
@@ -159,4 +161,5 @@ export class DataTableWrapperComponent implements OnInit{
     }
 
   }
+
 }

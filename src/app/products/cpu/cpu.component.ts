@@ -3,6 +3,7 @@ import { FormControl } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { CPU } from "src/app/products/cpu/cpu.model";
+import { DataFilterService } from "src/app/shared/data-filter.service";
 import { DataTableType, rowActions } from "src/app/shared/data-table/datatabletype.model";
 import { PCPART_CPU } from "../products.type";
 import { CPUService } from "./cpu.service";
@@ -14,26 +15,28 @@ import { CPUService } from "./cpu.service";
 export class CPUComponent implements OnInit, OnDestroy{
     cpus: CPU[];
     subscription: Subscription;
-    
+
     tableConfig: DataTableType;
 
-    constructor(private cpuService: CPUService){}
+    constructor(private cpuService: CPUService, private dataFilterService: DataFilterService){}
 
     ngOnInit(): void {
 
         this.subscription = this.cpuService.cpusChanged.subscribe((data: CPU[])=>{
             this.cpus = data;
         })
-        
-    
+
+
         this.cpus= this.cpuService.getCpus();
+
+        this.dataFilterService.setisFilter(true);
 
         // this.filter.valueChanges.pipe(
         //     debounceTime(500), // delay 1000 msec
         //     distinctUntilChanged()).subscribe((val: string )=> {
         //         this.searchfilter(val);
         //     })
-        
+
 
         this.tableConfig = {
             columns: [

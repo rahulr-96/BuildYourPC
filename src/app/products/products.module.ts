@@ -9,6 +9,7 @@ import { CPUComponent } from "./cpu/cpu.component";
 import { MemoryComponent } from "./memory/memory.component";
 import { MotherBoardComponent } from "./motherboard/motherboard.component";
 import { PowersupplyComponent } from "./powersupply/powersupply.component";
+import { ProductFilterComponent } from "./product-filter/product-filter.component";
 import { ProductListComponent } from "./products-list/products-list.component";
 import { ProductsStartComponent } from "./products-start/products-start.component";
 import { ProductsComponent } from "./products.component";
@@ -29,7 +30,8 @@ import { VideocardComponent } from "./videocard/videocard.component";
         StorageComponent,
         VideocardComponent,
         CaseComponent,
-        PowersupplyComponent
+        PowersupplyComponent,
+        ProductFilterComponent
     ],
     imports: [RouterModule, SharedModule, ReactiveFormsModule, ProductsRoutingModule]
 })
