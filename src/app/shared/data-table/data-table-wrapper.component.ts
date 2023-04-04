@@ -11,6 +11,7 @@ import { routeAnimations } from '../animations/route.animations';
 import { PlaceholderDirective } from '../placeholder/placeholder.directive';
 
 import { Column, DataTableType } from './datatabletype.model';
+import { ToastService } from '../toast/toast.service';
 
 @Component({
   selector: 'data-table-wrapper',
@@ -52,7 +53,7 @@ export class DataTableWrapperComponent implements OnInit{
   @ViewChild('testInput', { static: false }) tableFilterElem: ElementRef;
   @ViewChild(PlaceholderDirective, {static: false}) alertHost: PlaceholderDirective;
   private closeSub: Subscription;
-  constructor(private pcPartsService: PCPartsService, private router:Router,private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(private pcPartsService: PCPartsService, private router:Router, private toastService: ToastService) {}
 
   public ngOnInit(): void {
 
@@ -160,6 +161,12 @@ export class DataTableWrapperComponent implements OnInit{
         break;
     }
 
+    this.showToast(actionFor);
+
   }
+
+  showToast(pcPart: string) {
+    this.toastService.showInfoToast('PC Build', pcPart + ' Added');
+}
 
 }

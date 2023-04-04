@@ -15,6 +15,8 @@ import {
   routeAnimations
 } from './animations/route.animations';
 import { AnimationsService } from './animations/animations.service';
+import { ToastComponent } from "./toast/toast/toast.component";
+import { ToasterComponent } from "./toast/toaster/toaster.component";
 
 export {
   routeAnimations,
@@ -31,7 +33,9 @@ export {
         CurrencyConverterPipe,
         DataTableWrapperComponent,
         DataTableFilter,
-        ThemeToggleComponent
+        ThemeToggleComponent,
+        ToastComponent,
+        ToasterComponent
     ],
     imports:[
         CommonModule,
@@ -48,7 +52,9 @@ export {
         NgxPaginationModule,
         DataTableWrapperComponent,
         DataTableFilter,
-        ThemeToggleComponent
+        ThemeToggleComponent,
+        ToastComponent,
+        ToasterComponent
     ],
 })
 export class SharedModule{}

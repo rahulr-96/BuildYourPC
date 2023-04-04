@@ -8,6 +8,8 @@ import { Subscription } from "rxjs";
 import { PCPART_CASE, PCPART_CPU, PCPART_CPUCOOLER, PCPART_MEMORY, PCPART_MOTHERBOARD, PCPART_POWERSUPPLY, PCPART_STORAGE, PCPART_VIDEOCARD } from "../../products/products.type";
 
 import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../shared/shared.module';
+import { EventTypes } from "src/app/shared/toast/models/event-types";
+import { ToastService } from "src/app/shared/toast/toast.service";
 @Component({
     selector:'app-pcparts-list',
     templateUrl:'./pcparts-list.component.html',
@@ -17,7 +19,7 @@ export class PCPartsListComponent implements OnDestroy{
 
     subscription: Subscription;
 
-    constructor(private pcPartsService: PCPartsService, private router:Router, private dataStorageService: DataStorageService){}
+    constructor(private pcPartsService: PCPartsService, private router:Router, private dataStorageService: DataStorageService, private toastService: ToastService){}
 
     _pcparts: PCParts;
 
@@ -119,37 +121,49 @@ export class PCPartsListComponent implements OnDestroy{
         case 1:
             this._pcparts.CPU = null;
             this.pcPartsService.storePCparts(PCPART_CPU, this._pcparts);
+            this.showToast(PCPART_CPU)
             break;
       case 2:
             this._pcparts.CPUCooler = null;
             this.pcPartsService.storePCparts(PCPART_CPUCOOLER, this._pcparts);
+            this.showToast(PCPART_CPUCOOLER)
             break;
       case 3:
             this._pcparts.MotherBoard = null;
             this.pcPartsService.storePCparts(PCPART_MOTHERBOARD, this._pcparts);
+            this.showToast(PCPART_MOTHERBOARD)
             break;
       case 4:
             this._pcparts.Memory = null;
             this.pcPartsService.storePCparts(PCPART_MEMORY, this._pcparts);
+            this.showToast(PCPART_MEMORY)
             break;
       case 5:
             this._pcparts.Storage = null;
             this.pcPartsService.storePCparts(PCPART_STORAGE, this._pcparts);
+            this.showToast(PCPART_STORAGE)
             break;
         case 6:
             this._pcparts.Videocard = null;
             this.pcPartsService.storePCparts(PCPART_VIDEOCARD, this._pcparts);
+            this.showToast(PCPART_VIDEOCARD)
             break;
         case 7:
             this._pcparts.Case = null;
             this.pcPartsService.storePCparts(PCPART_CASE, this._pcparts);
+            this.showToast(PCPART_CASE)
             break;
         case 8:
             this._pcparts.Powersupply = null;
             this.pcPartsService.storePCparts(PCPART_POWERSUPPLY, this._pcparts);
+            this.showToast(PCPART_POWERSUPPLY)
             break;
       }
 
       this.findTotal();
+    }
+
+    showToast(pcPart: string) {
+        this.toastService.showInfoToast('PC Build', pcPart + ' Removed');
     }
 }

@@ -1,6 +1,6 @@
 
   <div class="row mr-0">
-    <div class="col-md-3 position-fixed">
+    <div class="col-md-3 d-none d-md-block position-fixed">
       <div class=" clearfix" role="group" >
         <button  (click)="toggle();" type="button" class="btn btn-link mr-3 float-left" >
           <span class="bi bi-arrow-return-left "></span>
@@ -14,8 +14,25 @@
           <app-product-filter></app-product-filter>
         </ng-template>
     </div>
-    <div class="col-md-9 border-left" style="margin-left: 320px;">
+    <div class="col-md-3 d-md-none">
+      <div class=" clearfix" role="group" >
+        <button  (click)="toggle();" type="button" class="btn btn-link mr-3 float-left" >
+          <span class="bi bi-arrow-return-left "></span>
+        </button>
+        <button  (click)="toggle();" type="button" class="btn btn-link mr-3 float-right" >
+          <span class="bi bi-arrow-return-right "></span>
+        </button>
+      </div>
+        <app-products-list *ngIf="!(isFilter$ | async); else filter "></app-products-list>
+        <ng-template #filter>
+          <app-product-filter></app-product-filter>
+        </ng-template>
+    </div>
+    <div class="col-md-9 border-left ml-auto">
         <router-outlet ></router-outlet>
     </div>
+    <!-- <div class="col-md-9 border-left d-md-none">
+      <router-outlet ></router-outlet>
+  </div> -->
 </div>
 
