@@ -9,6 +9,11 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
 import { FooterComponent } from './Footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideStorage,getStorage } from '@angular/fire/storage';
+
 
 
 @NgModule({
@@ -24,7 +29,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     SharedModule,
     CoreModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase()),
+    provideStorage(() => getStorage())
   ],
   bootstrap: [AppComponent],
 })
