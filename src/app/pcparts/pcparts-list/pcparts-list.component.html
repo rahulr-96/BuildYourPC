@@ -14,7 +14,13 @@
         <th scope="col">Component</th>
         <th scope="col">Selection</th>
         <th scope="col">Price</th>
-        <th scope="col"><button class="btn btn-primary" (click)="download()" >Save</button></th>
+        <th scope="col">
+          <div class="btn-group" role="group">
+           <button class="btn btn-primary" (click)="save()" >Save</button>
+          <button class="btn btn-primary bi bi-qr-code" (click)="download()" ></button>
+          </div>
+
+        </th>
       </tr>
     </thead>
     <tbody>

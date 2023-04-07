@@ -199,14 +199,10 @@ export class PCPartsListComponent implements OnDestroy{
     }
 
     download() {
-
       let doc = new jsPDF();
-
       autoTable(doc,{html: '#table'});
-
       let pdf = doc.output("blob");
       this.upload(pdf);
-
     }
 
     upload(blob: Blob): void {

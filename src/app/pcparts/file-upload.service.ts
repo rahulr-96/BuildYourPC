@@ -6,8 +6,7 @@ import { Injectable } from '@angular/core';
 
 import{Storage,ref,uploadBytesResumable,getDownloadURL}from'@angular/fire/storage'
 
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import {  Observable, Subject } from 'rxjs';
 import { FileUpload } from './file-upload';
 
 @Injectable({
