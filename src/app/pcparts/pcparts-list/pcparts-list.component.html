@@ -1,4 +1,4 @@
-
+<!-- <ng-template appPlaceholder ></ng-template> -->
   <div class=" mr-auto">
     <h1>Choose Your Parts</h1>
 
@@ -8,13 +8,13 @@
 </div>
 
 <div class="table-responsive" [@routeAnimations]>
-  <table class="table">
+  <table id="table" class="table">
     <thead>
       <tr>
         <th scope="col">Component</th>
         <th scope="col">Selection</th>
         <th scope="col">Price</th>
-        <th scope="col"><button class="btn btn-primary" (click)="save()" >Save</button></th>
+        <th scope="col"><button class="btn btn-primary" (click)="download()" >Save</button></th>
       </tr>
     </thead>
     <tbody>
@@ -91,3 +91,23 @@
   <ng-template #addVideocardButton><td><button class="btn btn-primary" (click)="addPcPart(6)">Add</button></td></ng-template>
   <ng-template #addCaseButton><td><button class="btn btn-primary" (click)="addPcPart(7)">Add</button></td></ng-template>
   <ng-template #addPowersupplyButton><td><button class="btn btn-primary" (click)="addPcPart(8)">Add</button></td></ng-template>
+
+
+<div #modal class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Scan QR Code</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <qrcode [qrdata]= "downloadUrl" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

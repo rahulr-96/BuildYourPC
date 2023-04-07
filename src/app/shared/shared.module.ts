@@ -17,7 +17,8 @@ import {
 import { AnimationsService } from './animations/animations.service';
 import { ToastComponent } from "./toast/toast/toast.component";
 import { ToasterComponent } from "./toast/toaster/toaster.component";
-
+import { QRCodeModule } from 'angularx-qrcode';
+import { QrModalComponent } from "./qrmodal/qrmodal.component";
 export {
   routeAnimations,
   ROUTE_ANIMATIONS_ELEMENTS,
@@ -35,12 +36,14 @@ export {
         DataTableFilter,
         ThemeToggleComponent,
         ToastComponent,
-        ToasterComponent
+        ToasterComponent,
+        QrModalComponent
     ],
     imports:[
         CommonModule,
         NgxPaginationModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        QRCodeModule
     ],
     exports:[
         AlertComponent,
@@ -54,7 +57,9 @@ export {
         DataTableFilter,
         ThemeToggleComponent,
         ToastComponent,
-        ToasterComponent
+        ToasterComponent,
+        QRCodeModule,
+        QrModalComponent
     ],
 })
 export class SharedModule{}

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from "@angular/core";
+import { Component, ComponentFactoryResolver, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 import { CPU } from "../../products/cpu/cpu.model";
 import { PCParts } from "../pcparts.model";
 import { PCPartsService } from "../pcparts.service";
@@ -10,6 +10,15 @@ import { PCPART_CASE, PCPART_CPU, PCPART_CPUCOOLER, PCPART_MEMORY, PCPART_MOTHER
 import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../shared/shared.module';
 import { EventTypes } from "src/app/shared/toast/models/event-types";
 import { ToastService } from "src/app/shared/toast/toast.service";
+
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable';
+import { FileUpload } from "../file-upload";
+import { FileUploadService } from "../file-upload.service";
+import { Modal } from 'bootstrap';
+import{QrModalComponent}from '../../shared/qrmodal/qrmodal.component';
+import { PlaceholderDirective } from "src/app/shared/placeholder/placeholder.directive";
+
 @Component({
     selector:'app-pcparts-list',
     templateUrl:'./pcparts-list.component.html',
@@ -17,13 +26,25 @@ import { ToastService } from "src/app/shared/toast/toast.service";
 })
 export class PCPartsListComponent implements OnDestroy{
 
+  @ViewChild('modal', { static: true })
+  modalEl!: ElementRef;
+
+    //@ViewChild(PlaceholderDirective, {static: false}) alertHost: PlaceholderDirective;
+
     subscription: Subscription;
 
-    constructor(private pcPartsService: PCPartsService, private router:Router, private dataStorageService: DataStorageService, private toastService: ToastService){}
+    constructor(private pcPartsService: PCPartsService, private router:Router, private dataStorageService: DataStorageService, private toastService: ToastService,private uploadService: FileUploadService, private componentFactoryResolver: ComponentFactoryResolver){}
 
     _pcparts: PCParts;
 
     total: number = 0;
+
+    displayStyle = "none";
+
+    downloadUrl =  "firebase";
+
+    private closeSub: Subscription;
+    private urlSub: Subscription;
 
     ngOnInit(){
 
@@ -36,6 +57,14 @@ export class PCPartsListComponent implements OnDestroy{
         this.subscription = this.pcPartsService.pcPartsChanged.subscribe(data =>{
             this._pcparts=data;
             this.findTotal();
+        })
+
+        this.urlSub =this.uploadService.downloadURLChanges().subscribe(url => {
+            this.downloadUrl = url;
+            //this.openPopup();
+            const myModal = new Modal(this.modalEl.nativeElement);
+            myModal.show();
+            // this.showErrorAlert(this.downloadUrl);
         })
 
     }
@@ -79,6 +108,8 @@ export class PCPartsListComponent implements OnDestroy{
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
+        this.urlSub.unsubscribe();
+
     }
 
     findTotal(){
@@ -166,4 +197,45 @@ export class PCPartsListComponent implements OnDestroy{
     showToast(pcPart: string) {
         this.toastService.showInfoToast('PC Build', pcPart + ' Removed');
     }
+
+    download() {
+
+      let doc = new jsPDF();
+
+      autoTable(doc,{html: '#table'});
+
+      let pdf = doc.output("blob");
+      this.upload(pdf);
+
+    }
+
+    upload(blob: Blob): void {
+      // const file = this.selectedFiles.item(0);
+      var file = new File([blob], "name.pdf");
+      let currentFileUpload = new FileUpload(file);
+      this.uploadService.pushFileToStorage(currentFileUpload);
+
+    }
+
+    openPopup() {
+      this.displayStyle = "block";
+    }
+    closePopup() {
+      this.displayStyle = "none";
+    }
+
+    // private showErrorAlert(message: string){
+    //   const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(QrModalComponent);
+
+    //   const hostViewContainerRef = this.alertHost.viewContainerRef;
+    //   hostViewContainerRef.clear();
+
+    //   const componentRef =  hostViewContainerRef.createComponent(alertCmpFactory);
+
+    //   componentRef.instance.qrData = message;
+    //   this.closeSub = componentRef.instance.close.subscribe(() => {
+    //     this.closeSub.unsubscribe();
+    //     hostViewContainerRef.clear();
+    //   })
+    // }
 }
