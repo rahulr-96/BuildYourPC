@@ -16,7 +16,6 @@ import autoTable from 'jspdf-autotable';
 import { FileUpload } from "../file-upload";
 import { FileUploadService } from "../file-upload.service";
 import { Modal } from 'bootstrap';
-import{QrModalComponent}from '../../shared/qrmodal/qrmodal.component';
 import { PlaceholderDirective } from "src/app/shared/placeholder/placeholder.directive";
 
 @Component({
