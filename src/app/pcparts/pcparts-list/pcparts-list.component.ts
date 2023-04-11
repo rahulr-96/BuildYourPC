@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, OnDestroy, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 import { CPU } from "../../products/cpu/cpu.model";
 import { PCParts } from "../pcparts.model";
 import { PCPartsService } from "../pcparts.service";
@@ -33,7 +33,10 @@ export class PCPartsListComponent implements OnDestroy{
 
     subscription: Subscription;
 
-    constructor(private pcPartsService: PCPartsService, private router:Router, private dataStorageService: DataStorageService, private toastService: ToastService,private uploadService: FileUploadService, private componentFactoryResolver: ComponentFactoryResolver){}
+    constructor(private pcPartsService: PCPartsService, private router:Router,
+      private dataStorageService: DataStorageService, private toastService: ToastService,
+      private uploadService: FileUploadService, private componentFactoryResolver: ComponentFactoryResolver,
+      private cdr: ChangeDetectorRef){}
 
     _pcparts: PCParts;
 
@@ -41,7 +44,7 @@ export class PCPartsListComponent implements OnDestroy{
 
     displayStyle = "none";
 
-    downloadUrl =  "firebase";
+    downloadUrl =  "";
 
     private closeSub: Subscription;
     private urlSub: Subscription;
@@ -60,10 +63,13 @@ export class PCPartsListComponent implements OnDestroy{
         })
 
         this.urlSub =this.uploadService.downloadURLChanges().subscribe(url => {
-            this.downloadUrl = url;
+
+
             //this.openPopup();
             const myModal = new Modal(this.modalEl.nativeElement);
             myModal.show();
+            this.downloadUrl =  url;
+            this.cdr.detectChanges();
             // this.showErrorAlert(this.downloadUrl);
         })
 
@@ -199,6 +205,8 @@ export class PCPartsListComponent implements OnDestroy{
     }
 
     download() {
+      this.downloadUrl =  undefined;
+      this.cdr.detectChanges();
       let doc = new jsPDF();
       autoTable(doc,{html: '#table'});
       let pdf = doc.output("blob");

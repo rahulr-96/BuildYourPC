@@ -1,7 +1,7 @@
 <!-- <ng-template appPlaceholder ></ng-template> -->
   <div class=" mr-auto">
     <h1>Choose Your Parts</h1>
-
+      <!-- <qrcode *ngIf="downloadUrl" [qrdata]= "downloadUrl" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
   <!-- <div class="ml-auto">
     <button class="btn btn-primary" (click)="save()" >Save</button>
   </div> -->
@@ -109,7 +109,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <qrcode [qrdata]= "downloadUrl" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+          <qrcode *ngIf="downloadUrl" [qrdata]= "downloadUrl" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+        <ng-template #loggedOut>
+          Please friend, login.
+        </ng-template>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
