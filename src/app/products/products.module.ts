@@ -10,7 +10,7 @@ import { MemoryComponent } from "./memory/memory.component";
 import { MotherBoardComponent } from "./motherboard/motherboard.component";
 import { PowersupplyComponent } from "./powersupply/powersupply.component";
 import { ProductFilterComponent } from "./product-filter/product-filter.component";
-import { ProductListComponent } from "./products-list/products-list.component";
+// import { ProductListComponent } from "./products-list/products-list.component";
 import { ProductsStartComponent } from "./products-start/products-start.component";
 import { ProductsComponent } from "./products.component";
 import { ProductsRoutingModule } from "./products.routing.module";
@@ -21,7 +21,6 @@ import { VideocardComponent } from "./videocard/videocard.component";
 @NgModule({
     declarations:[
         ProductsComponent,
-        ProductListComponent,
         ProductsStartComponent,
         CPUComponent,
         CPUCoolerComponent,

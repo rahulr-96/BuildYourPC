@@ -1,39 +1,96 @@
 <div class="container" [@routeAnimations]>
-    <div class="row ">
-        <h3 class="mx-auto">Product Categories</h3>
-    </div>
-    <div class="row mt-3">
-        <div class="col">
+  <!-- <ul class="list-group list-group-horizontal-sm">
+    <li class="list-group-item media">
+      <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-cpu.png" class="mr-3" alt="cpu">
+      <a class="nav-link " routerLinkActive="active"  [routerLink]="['/products/cpu']"><small>CPU</small></a>
+    </li>
+    <li class="list-group-item media">
+      <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-cpucooler.png" class="mr-3" alt="cpu cooler">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/cpuCooler']"><small>CPU Cooler</small></a>
+    </li>
+    <li class="list-group-item media">
+      <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-motherboard.png" class="mr-3" >
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/motherboard']"><small>Motherboards</small></a>
+    </li>
+    <li class="list-group-item media">
+      <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-memory.png" class="mr-3" >
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/memory']"><small>Memory</small></a>
+    </li>
+  </ul>
+  <ul class="list-group list-group-horizontal-sm">
 
-            <ul >
-                <li >
-                    <a class="nav-link " routerLinkActive="active"  [routerLink]="['/products/cpu']">CPU</a>
-                </li>
-                <li >
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/cpuCooler']">CPU Cooler</a>
-                </li>
-                <li >
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/motherboard']">Motherboards</a>
-                </li>
-                <li >
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/memory']">Memory</a>
-                </li>
-                <li >
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/storage']">Storage</a>
-                </li>
-                <li >
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/videocard']">Videocard</a>
-                </li>
-                <li >
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/case']">Cases</a>
-                </li>
-                <li >
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/powersupply']">Power Supplies</a>
-                </li>
-              </ul>
-        </div>
+    <li class="list-group-item media">
+      <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-ssd.png" class="mr-3" >
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/storage']"><small>Storage</small></a>
+    </li>
+    <li class="list-group-item media">
+      <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-videocard.png" class="mr-3" >
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/videocard']"><small>Videocard</small></a>
+    </li>
+    <li class="list-group-item media">
+      <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-case.png" class="mr-3" >
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/case']"><small>Cases</small></a>
+    </li>
+    <li class="list-group-item media">
+      <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-powersupply.png" class="mr-3" >
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/powersupply']"><p><small>Power Supplies</small></p></a>
+    </li>
+  </ul> -->
+      <ul class="list-group list-group-horizontal-sm">
+        <li class="media">
+          <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-cpu.png"  alt="cpu">
+          <div class="media-body">
+            <a class="nav-link " routerLinkActive="active"  [routerLink]="['/products/cpu']"><small>CPU</small></a>
+          </div>
+        </li>
+        <li class="media">
+          <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-cpucooler.png"  alt="cpu cooler">
+          <div  class="media-body">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/cpuCooler']"><small>CPU Cooler</small></a>
+          </div>
+        </li>
+        <li class="media">
+          <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-motherboard.png"  >
+          <div class="media-body">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/motherboard']"><small>Motherboards</small></a>
+          </div>
+        </li>
+        <li class="media">
+          <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-memory.png"  >
+          <div class="media-body">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/memory']"><small>Memory</small></a>
+          </div>
+        </li>
+      </ul>
+      <hr>
+      <ul class="list-group list-group-horizontal-sm">
+        <li class=" media">
+          <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-ssd.png"  >
+          <div class="media-body">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/storage']"><small>Storage</small></a>
+          </div>
+        </li>
+        <li class=" media">
+          <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-videocard.png"  >
+          <div class="media-body">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/videocard']"><small>Videocard</small></a>
+          </div>
+        </li>
+        <li class="media">
+          <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-case.png"  >
+          <div class="media-body">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/case']"><small>Cases</small></a>
+          </div>
+        </li>
+        <li class="media">
+          <img style="height:64px; width:64px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-powersupply.png"  >
+          <div>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/products/powersupply']"><p><small>Power Supplies</small></p></a>
+          </div>
+        </li>
+      </ul>
     </div>
-</div>
+
 
 
 

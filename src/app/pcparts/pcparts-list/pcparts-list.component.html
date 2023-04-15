@@ -28,55 +28,55 @@
         <th scope="row">CPU</th>
         <td *ngIf="_pcparts.CPU; else addCPUButton">{{_pcparts.CPU.name}}</td>
         <td>{{_pcparts.CPU ? (_pcparts.CPU.price_usd | number): null}}</td>
-        <td *ngIf="_pcparts.CPU"><button class="btn btn-primary" (click)="removePart(1)">Remove</button></td>
+        <td *ngIf="_pcparts.CPU"><button class="btn btn-primary btn-sm" (click)="removePart(1)">Remove</button></td>
 
       </tr>
       <tr>
         <th scope="row">CPU Cooler</th>
         <td *ngIf="_pcparts.CPUCooler; else addCPUCoolerButton">{{_pcparts.CPUCooler.name}}</td>
         <td>{{_pcparts.CPUCooler ? (_pcparts.CPUCooler.price_usd | number): null}}</td>
-        <td *ngIf="_pcparts.CPUCooler"><button class="btn btn-primary" (click)="removePart(2)">Remove</button></td>
+        <td *ngIf="_pcparts.CPUCooler"><button class="btn btn-primary btn-sm" (click)="removePart(2)">Remove</button></td>
 
       <tr>
         <th scope="row">Motherboard</th>
         <td *ngIf="_pcparts.MotherBoard; else addMotherBoardButton">{{_pcparts.MotherBoard.name}}</td>
         <td>{{_pcparts.MotherBoard ? (_pcparts.MotherBoard.price_usd | number): null}}</td>
-        <td *ngIf="_pcparts.MotherBoard"><button class="btn btn-primary" (click)="removePart(3)">Remove</button></td>
+        <td *ngIf="_pcparts.MotherBoard"><button class="btn btn-primary btn-sm" (click)="removePart(3)">Remove</button></td>
 
       </tr>
       <tr>
         <th scope="row">Memory</th>
         <td *ngIf="_pcparts.Memory; else addMemoryButton">{{_pcparts.Memory.name}}</td>
         <td>{{_pcparts.Memory ? (_pcparts.Memory.price_usd | number) : null}}</td>
-        <td *ngIf="_pcparts.Memory"><button class="btn btn-primary" (click)="removePart(4)">Remove</button></td>
+        <td *ngIf="_pcparts.Memory"><button class="btn btn-primary btn-sm" (click)="removePart(4)">Remove</button></td>
 
       </tr>
       <tr>
         <th scope="row">Storage</th>
         <td *ngIf="_pcparts.Storage; else addStorageButton">{{_pcparts.Storage.name}}</td>
         <td>{{_pcparts.Storage ? (_pcparts.Storage.price_usd | number): null}}</td>
-        <td *ngIf="_pcparts.Storage"><button class="btn btn-primary" (click)="removePart(5)">Remove</button></td>
+        <td *ngIf="_pcparts.Storage"><button class="btn btn-primary btn-sm" (click)="removePart(5)">Remove</button></td>
 
       </tr>
       <tr>
         <th scope="row">Videocard</th>
         <td *ngIf="_pcparts.Videocard; else addVideocardButton">{{_pcparts.Videocard.name}}</td>
         <td>{{_pcparts.Videocard ? (_pcparts.Videocard.price_usd | number) : null}}</td>
-        <td *ngIf="_pcparts.Videocard"><button class="btn btn-primary" (click)="removePart(6)">Remove</button></td>
+        <td *ngIf="_pcparts.Videocard"><button class="btn btn-primary btn-sm" (click)="removePart(6)">Remove</button></td>
 
       </tr>
       <tr>
         <th scope="row">Case</th>
         <td *ngIf="_pcparts.Case; else addCaseButton">{{_pcparts.Case.name}}</td>
         <td>{{_pcparts.Case ? (_pcparts.Case.price_usd | number) : null}}</td>
-        <td *ngIf="_pcparts.Case"><button class="btn btn-primary" (click)="removePart(7)">Remove</button></td>
+        <td *ngIf="_pcparts.Case"><button class="btn btn-primary btn-sm" (click)="removePart(7)">Remove</button></td>
 
       </tr>
       <tr>
         <th scope="row">Powersupply</th>
         <td *ngIf="_pcparts.Powersupply; else addPowersupplyButton">{{_pcparts.Powersupply.name}}</td>
         <td>{{_pcparts.Powersupply ? (_pcparts.Powersupply.price_usd | number) : null}}</td>
-        <td *ngIf="_pcparts.Powersupply"><button class="btn btn-primary" (click)="removePart(8)">Remove</button></td>
+        <td *ngIf="_pcparts.Powersupply"><button class="btn btn-primary btn-sm" (click)="removePart(8)">Remove</button></td>
       </tr>
     </tbody>
     <tfoot>
@@ -89,14 +89,14 @@
   </table>
 </div>
 
-  <ng-template #addCPUButton><td><button class="btn btn-primary" (click)="addPcPart(1)">Add</button></td></ng-template>
-  <ng-template #addCPUCoolerButton><td><button class="btn btn-primary" (click)="addPcPart(2)">Add</button></td></ng-template>
-  <ng-template #addMotherBoardButton><td><button class="btn btn-primary" (click)="addPcPart(3)">Add</button></td></ng-template>
-  <ng-template #addMemoryButton><td><button class="btn btn-primary" (click)="addPcPart(4)">Add</button></td></ng-template>
-  <ng-template #addStorageButton><td><button class="btn btn-primary" (click)="addPcPart(5)">Add</button></td></ng-template>
-  <ng-template #addVideocardButton><td><button class="btn btn-primary" (click)="addPcPart(6)">Add</button></td></ng-template>
-  <ng-template #addCaseButton><td><button class="btn btn-primary" (click)="addPcPart(7)">Add</button></td></ng-template>
-  <ng-template #addPowersupplyButton><td><button class="btn btn-primary" (click)="addPcPart(8)">Add</button></td></ng-template>
+  <ng-template #addCPUButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(1)">Add</button></td></ng-template>
+  <ng-template #addCPUCoolerButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(2)">Add</button></td></ng-template>
+  <ng-template #addMotherBoardButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(3)">Add</button></td></ng-template>
+  <ng-template #addMemoryButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(4)">Add</button></td></ng-template>
+  <ng-template #addStorageButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(5)">Add</button></td></ng-template>
+  <ng-template #addVideocardButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(6)">Add</button></td></ng-template>
+  <ng-template #addCaseButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(7)">Add</button></td></ng-template>
+  <ng-template #addPowersupplyButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(8)">Add</button></td></ng-template>
 
 
 <div #modal class="modal" tabindex="-1" role="dialog">

@@ -1,0 +1,15 @@
+<div #slider [style.width]="rangeWidth" class="min-max-slider" >
+  <span  class="lower value">{{minValue}}</span>
+  <input  style="top: 27.2px" [style.left]="minStyleLeft" [style.width]="minStyleWidth" (input)="update()" id="min" class="min bg-primary" name="min" type="range" step="1" [min]="rangeMin" [max]="maxOfMin" [(ngModel)]="minValue" />
+
+  <span class="upper value">{{maxValue}}</span>
+  <input  style="top: 27.2px"  [style.left]="maxStyleLeft"  [style.width]="maxStyleWidth" (input)="update()" id="max" class="max bg-primary" name="max" type="range" step="1" [min]="minOfMax" [max]="rangeMax" [(ngModel)]="maxValue" />
+  <div class="legend" style="margin-top: 15px">
+    <div>
+      {{rangeMin}}
+    </div>
+    <div>
+      {{rangeMax}}
+    </div>
+  </div>
+</div>

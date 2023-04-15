@@ -15,7 +15,7 @@
               {{ columnHead.title }}
               <i *ngIf="columnHead.sortable" [ngClass]="columnHead.sortOrder ? 'bi bi-sort-up' : 'bi bi-sort-down'"></i>
               </p>
-              <input #testInput
+              <!-- <input #testInput
               [formControl]="tableFilter"
               [style.opacity]="filter !== i ? 0 : 1"
                [@contentExpansion] = "filter !== i ? 'collapsed' : 'expanded'"
@@ -25,7 +25,17 @@
               <i *ngIf="columnHead.filterable"
               (click)="toggle(i);"
               data-toggle="button" [ngClass]="filter == i ? 'btn bi bi-funnel-fill' : 'btn bi bi-funnel'">
-            </i>
+            </i> -->
+            <div [style.opacity]="filter !== i ? 0 : 1" class="collapse width"  style="width: 100px;" [id]="'collapseWidth'+columnHead.title">
+              <input #testInput
+              [formControl]="tableFilter"
+               type="text"
+               placeholder="Search by {{columnHead.title}}..." >
+            </div>
+
+               <button *ngIf="columnHead.filterable" (click)="toggle(i);" class="btn bi bi-funnel-fill" type="button" data-toggle="collapse" [attr.data-target]="'#collapseWidth'+columnHead.title" aria-expanded="false" [attr.aria-controls]="'collapseWidth'+columnHead.title">
+
+              </button>
             </div>
           </th>
         </tr>
@@ -38,7 +48,7 @@
             </div>
             <ng-template #action_content>
               <div *ngFor="let action of tableConfig.rowActions">
-                <button class="btn btn-primary" (click)="rowAction(action.actionFor,columnData)">{{action.label}}</button>
+                <button class="btn btn-primary btn-sm" (click)="rowAction(action.actionFor,columnData)">{{action.label}}</button>
               </div>
             </ng-template>
           </td>

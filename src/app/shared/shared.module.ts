@@ -8,7 +8,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { CurrencyConverterPipe } from "./currency-converter/currency-converter.pipe";
 import { DataTableWrapperComponent } from "./data-table/data-table-wrapper.component";
 import { DataTableFilter } from "./data-table/data-table-filter.pipe";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule} from "@angular/forms";
 import{ThemeToggleComponent} from './theme-toggle/theme-toggle.component'
 import {
   ROUTE_ANIMATIONS_ELEMENTS,
@@ -18,11 +18,14 @@ import { AnimationsService } from './animations/animations.service';
 import { ToastComponent } from "./toast/toast/toast.component";
 import { ToasterComponent } from "./toast/toaster/toaster.component";
 import { QRCodeModule } from 'angularx-qrcode';
+import { ProductListComponent } from "../products/products-list/products-list.component";
 export {
   routeAnimations,
   ROUTE_ANIMATIONS_ELEMENTS,
   AnimationsService
 };
+import { RouterModule } from '@angular/router';
+import { RangeSliderComponent } from "./range-slider/range-slider.component";
 
 @NgModule({
     declarations:[
@@ -36,12 +39,16 @@ export {
         ThemeToggleComponent,
         ToastComponent,
         ToasterComponent,
+        ProductListComponent,
+        RangeSliderComponent
     ],
     imports:[
         CommonModule,
         NgxPaginationModule,
         ReactiveFormsModule,
-        QRCodeModule
+        FormsModule,
+        QRCodeModule,
+        RouterModule
     ],
     exports:[
         AlertComponent,
@@ -57,6 +64,9 @@ export {
         ToastComponent,
         ToasterComponent,
         QRCodeModule,
+        ProductListComponent,
+        RouterModule,
+        RangeSliderComponent
     ],
 })
 export class SharedModule{}
