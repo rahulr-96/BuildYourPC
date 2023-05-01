@@ -1,5 +1,5 @@
 import {style,transition,trigger,animate,state,} from '@angular/animations';
-import {Component,ComponentFactoryResolver,ElementRef,Input,OnInit,ViewChild,} from '@angular/core';
+import {Component,ComponentFactoryResolver,ElementRef,Input,OnInit,SimpleChanges,ViewChild,} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -167,6 +167,11 @@ export class DataTableWrapperComponent implements OnInit{
 
   showToast(pcPart: string) {
     this.toastService.showInfoToast('PC Build', pcPart + ' Added');
+}
+
+ngOnChanges(changes: SimpleChanges){
+  console.log("ngOnChanges")
+  this.tableContentObs.next(this.tableContent);
 }
 
 }

@@ -23,13 +23,14 @@ export class CPUComponent implements OnInit, OnDestroy{
     ngOnInit(): void {
 
         this.subscription = this.cpuService.cpusChanged.subscribe((data: CPU[])=>{
+          console.log("cpusChanged")
             this.cpus = data;
         })
 
 
         this.cpus= this.cpuService.getCpus();
 
-        this.dataFilterService.setisFilter(true);
+        this.dataFilterService.setisFilter(PCPART_CPU);
 
         // this.filter.valueChanges.pipe(
         //     debounceTime(500), // delay 1000 msec
@@ -52,9 +53,9 @@ export class CPUComponent implements OnInit, OnDestroy{
           }
     }
 
-    searchfilter(val: string){
-        this.cpuService.filterCpus(val);
-    }
+    // searchfilter(val: string){
+    //     this.cpuService.filterCpus(val);
+    // }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();

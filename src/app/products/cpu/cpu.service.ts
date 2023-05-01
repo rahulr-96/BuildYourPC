@@ -16,10 +16,10 @@ export class CPUService{
         this.cpusChanged.next(this.cpus.slice());
     }
 
-    filterCpus(val: string){
+    filterCpus(val: string, key: string){
 
         if(val != ''){
-            this.cpusChanged.next(this.cpus.filter(cpu => cpu.name.toLowerCase().indexOf(val.toLowerCase()) > -1 ));
+            this.cpusChanged.next(this.cpus.filter(cpu => cpu[key].toLowerCase().indexOf(val.toLowerCase()) > -1 ));
         }
         else{
             this.cpusChanged.next(this.cpus.slice());

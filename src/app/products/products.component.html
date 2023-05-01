@@ -17,20 +17,20 @@
         </ng-template> -->
       </div>
     </div>
-    <!-- <div class="col-md-3 d-md-none">
-      <div class=" clearfix" role="group" >
-        <button  (click)="toggle();" type="button" class="btn btn-link mr-3 float-left" >
-          <span class="bi bi-arrow-return-left "></span>
-        </button>
-        <button  (click)="toggle();" type="button" class="btn btn-link mr-3 float-right" >
-          <span class="bi bi-arrow-return-right "></span>
-        </button>
+
+
+    <div class="col-md-3 d-md-none " >
+      <a class="btn btn-outline-secondary btn-lg btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Filter
+      </a>
+      <div class="collapse mt-2"  id="collapseExample">
+        <div class="card card-body" style="height:230px">
+          <div class="overflow-auto">
+            <app-product-filter></app-product-filter>
+          </div>
+        </div>
       </div>
-        <app-products-list *ngIf="!(isFilter$ | async); else filter "></app-products-list>
-        <ng-template #filter>
-          <app-product-filter></app-product-filter>
-        </ng-template>
-    </div> -->
+    </div>
     <div class="col-md-9 ml-auto">
         <router-outlet ></router-outlet>
     </div>

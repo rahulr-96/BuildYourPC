@@ -28,13 +28,13 @@ export class ProductsComponent implements OnInit, OnDestroy{
 
 
   ngOnInit(): void {
-    this.isFilter$ = this.dataFilterService.getisFilter();
+    // this.isFilter$ = this.dataFilterService.getisFilter();
 
   }
 
-  toggle(){
-    this.dataFilterService.toggle();
-  }
+  // toggle(){
+  //   this.dataFilterService.toggle();
+  // }
 
 
 }

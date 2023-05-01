@@ -32,4 +32,13 @@ togglePanel(button: any) {
 isPanelOpen(button: any) {
   return this.selectedPanel === button;
 }
+
+filterClick(){
+  console.log("filterClick")
+  let objFilterCriteria : FilterCriteria = new FilterCriteria();
+   objFilterCriteria.name = 'Manufacturer';
+   objFilterCriteria.selectedValue = 'Intel'
+   this._dataFilterService.filterProducts(objFilterCriteria)
+}
+
 }

@@ -36,7 +36,12 @@
         <div [ngSwitch]="button.style">
           <div *ngSwitchCase="'list'">
             <li *ngFor="let value of button.values">
-              {{value}}
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" (change)="filterClick()" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                  {{value}}
+                </label>
+              </div>
             </li>
           </div>
           <div *ngSwitchCase="'price_slider'">
