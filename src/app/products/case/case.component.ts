@@ -6,6 +6,7 @@ import { Case } from "src/app/products/case/case.model";
 import { DataTableType, rowActions } from "src/app/shared/data-table/datatabletype.model";
 import { PCPART_CASE, PCPART_MOTHERBOARD, PCPART_VIDEOCARD } from "../products.type";
 import { CaseService } from "./case.service";
+import { DataFilterService } from "src/app/shared/data-filter.service";
 
 @Component({
     selector:'app-Case',
@@ -17,7 +18,7 @@ export class CaseComponent implements OnInit, OnDestroy{
     
     tableConfig: DataTableType;
 
-    constructor(private CaseService: CaseService){}
+    constructor(private CaseService: CaseService, private dataFilterService: DataFilterService){}
 
     ngOnInit(): void {
 
@@ -27,6 +28,8 @@ export class CaseComponent implements OnInit, OnDestroy{
         
     
         this.Cases= this.CaseService.getCases();
+        
+        this.dataFilterService.setisFilter(PCPART_CASE);
 
         // this.filter.valueChanges.pipe(
         //     debounceTime(500), // delay 1000 msec
@@ -37,8 +40,8 @@ export class CaseComponent implements OnInit, OnDestroy{
 
         this.tableConfig = {
             columns: [
-              {title: "Name", dataProperty: "name", sortable: true, sortOrder: true, filterable: true,},
-              {title: "Price", dataProperty: "price_usd", sortable: true, sortOrder: true, filterable: false},
+              {title: "Name", dataProperty: "ComponentHead.ComponentName", sortable: true, sortOrder: true, filterable: true,},
+              {title: "Price", dataProperty: "ComponentHead.Price", sortable: true, sortOrder: true, filterable: false},
               {title: "Chipset", dataProperty: "chipset", sortable: false, sortOrder: true, filterable: false},
               {title: "", dataProperty: "ROW_ACTIONS", sortable: false,sortOrder: false, filterable: false},
             ],

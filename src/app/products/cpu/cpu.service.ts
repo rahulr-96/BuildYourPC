@@ -5,6 +5,7 @@ import { CPU } from "src/app/products/cpu/cpu.model";
 @Injectable()
 export class CPUService{
     private cpus: CPU[] = [];
+
     cpusChanged = new Subject<CPU[]>();
 
     getCpus(){

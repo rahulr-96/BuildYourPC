@@ -1,0 +1,28 @@
+
+<div class="dropdown" >
+    <!-- <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+      Dropdown button
+    </button> -->
+    <input  class="form-control" [formControl]="searchCtrl" type="text" data-toggle="dropdown" placeholder="Search"  aria-label="Search">
+    <div [hidden]="lstSearchResults.length == 0" class="dropdown-menu " style="width:100%">
+
+     <!-- <a class="dropdown-item" *ngFor="let item of lstSearchResults">
+        {{item.name}}
+        <button class="btn btn-primary btn-sm">Add</button>
+     </a>
+
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a> -->
+      <div class="list-group list-group-flush">
+        <a href="#" *ngFor="let item of lstSearchResults" class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{item.name}}</h5>
+            <button class="btn btn-primary btn-sm" (click)="setPcPart(item)">Add</button>
+          </div>
+          <p class="mb-1">{{item.ComponentTypeName}}</p>
+          <small class="text-muted">{{item.price | currency:'USD'}}</small>
+        </a>
+      </div>
+    </div>
+  </div>

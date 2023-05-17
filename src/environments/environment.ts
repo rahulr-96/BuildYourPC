@@ -15,7 +15,10 @@ export const environment = {
     authDomain: 'shoppingappapi.firebaseapp.com',
     messagingSenderId: '683528569039',
     measurementId: 'G-FQTB54W40V',
-  }
+  },
+
+  supabaseUrl: 'https://welcpmckyqggkapipiyk.supabase.co',
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndlbGNwbWNreXFnZ2thcGlwaXlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODMxMzMzMjAsImV4cCI6MTk5ODcwOTMyMH0.gv_78f1leCVy4R3eyiF2O3KrJ1WtVFNGCy4ZpaIvq8o',
 };
 
 /*

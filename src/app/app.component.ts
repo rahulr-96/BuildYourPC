@@ -18,8 +18,18 @@ export class AppComponent implements OnInit {
     this.themeService.themeChanges().subscribe(theme => {
       if (theme.oldValue) {
         this.renderer.removeClass(document.body, theme.oldValue);
+
+        this.renderer.removeStyle(document.body,'color-scheme')
+        this.renderer.setStyle(document.documentElement, 'color-scheme', 'light')
+      }
+      if(theme.newValue == "bootstrap-dark"){
+        this.renderer.setStyle(document.documentElement, 'color-scheme', 'dark')
+      }
+      else{
+        this.renderer.setStyle(document.documentElement, 'color-scheme', 'light')
       }
       this.renderer.addClass(document.body, theme.newValue);
+
     })
   }
   prepareRoute(outlet: RouterOutlet) {

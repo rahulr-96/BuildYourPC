@@ -37,8 +37,8 @@ export class MemoryComponent implements OnInit, OnDestroy{
 
         this.tableConfig = {
             columns: [
-              {title: "Name", dataProperty: "name", sortable: true, sortOrder: true, filterable: true,},
-              {title: "Price", dataProperty: "price_usd", sortable: true, sortOrder: true, filterable: false},
+              {title: "Name", dataProperty: "ComponentHead.ComponentName", sortable: true, sortOrder: true, filterable: true,},
+              {title: "Price", dataProperty: "ComponentHead.Price", sortable: true, sortOrder: true, filterable: false},
               {title: "Speed", dataProperty: "speed", sortable: false, sortOrder: true, filterable: false},
               {title: "", dataProperty: "ROW_ACTIONS", sortable: false,sortOrder: false, filterable: false},
             ],

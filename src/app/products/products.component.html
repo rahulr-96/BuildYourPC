@@ -1,20 +1,8 @@
 
   <div class="row mr-0">
     <div class="col-md-3 d-none d-md-block position-fixed h-100  ">
-      <!-- <div class=" clearfix" role="group" >
-        <button  [hidden]="!(isFilter$ | async)" (click)="toggle();" type="button" class="btn btn-link mr-3 float-left" >
-          <span class="bi bi-arrow-return-left "></span>
-        </button>
-        <button [hidden]="(isFilter$ | async)" (click)="toggle();" type="button" class="btn btn-link mr-3 float-right" >
-          <span class="bi bi-arrow-return-right "></span>
-        </button>
-      </div> -->
-      <div class="h-75 overflow-auto border-right">
-        <app-product-filter></app-product-filter>
-        <!-- <app-products-list ></app-products-list> -->
-        <!-- <ng-template #filter>
-          <app-product-filter></app-product-filter>
-        </ng-template> -->
+      <div class="h-75 overflow-auto  ">
+        <app-product-filter ></app-product-filter>
       </div>
     </div>
 
@@ -26,7 +14,7 @@
       <div class="collapse mt-2"  id="collapseExample">
         <div class="card card-body" style="height:230px">
           <div class="overflow-auto">
-            <app-product-filter></app-product-filter>
+            <app-product-filter ></app-product-filter>
           </div>
         </div>
       </div>

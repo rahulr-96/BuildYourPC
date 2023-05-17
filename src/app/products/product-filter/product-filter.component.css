@@ -20,3 +20,11 @@
 .alert-box-actions{
   text-align: right;
 }
+
+.card-header .accicon {
+  float: right;
+}
+
+.card-header:not(.collapsed) .rotate-icon {
+  transform: rotate(180deg);
+}

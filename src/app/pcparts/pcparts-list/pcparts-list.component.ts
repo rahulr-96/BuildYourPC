@@ -37,7 +37,7 @@ export class PCPartsListComponent implements OnDestroy{
       private uploadService: FileUploadService, private componentFactoryResolver: ComponentFactoryResolver,
       private cdr: ChangeDetectorRef){}
 
-    _pcparts: PCParts;
+    _pcparts: PCParts = new PCParts();
 
     total: number = 0;
 
@@ -47,6 +47,8 @@ export class PCPartsListComponent implements OnDestroy{
 
     private closeSub: Subscription;
     private urlSub: Subscription;
+
+    qrLoading: boolean = false;
 
     ngOnInit(){
 
@@ -68,6 +70,7 @@ export class PCPartsListComponent implements OnDestroy{
             const myModal = new Modal(this.modalEl.nativeElement);
             myModal.show();
             this.downloadUrl =  url;
+            this.qrLoading = false;
             this.cdr.detectChanges();
             // this.showErrorAlert(this.downloadUrl);
         })
@@ -123,30 +126,30 @@ export class PCPartsListComponent implements OnDestroy{
         let i: number = 0;
 
           if(this._pcparts.CPU){
-            this.total += this._pcparts.CPU.price_usd;
+            this.total += +this._pcparts.CPU.ComponentHead.Price;
           }
           if(this._pcparts.CPUCooler){
-            this.total += this._pcparts.CPUCooler.price_usd;
+            this.total += +this._pcparts.CPUCooler.ComponentHead.Price;
           }
           if(this._pcparts.Case){
-            this.total += this._pcparts.Case.price_usd;
+            this.total += +this._pcparts.Case.ComponentHead.Price;
           }
           if(this._pcparts.Memory){
-            this.total += this._pcparts.Memory.price_usd;
+            this.total += +this._pcparts.Memory.ComponentHead.Price;
           }
           if(this._pcparts.MotherBoard){
-            this.total += this._pcparts.MotherBoard.price_usd;
+            this.total += +this._pcparts.MotherBoard.ComponentHead.Price;
           }
           if(this._pcparts.Powersupply){
-            this.total += this._pcparts.Powersupply.price_usd;
+            this.total += +this._pcparts.Powersupply.ComponentHead.Price;
 
           }
           if(this._pcparts.Storage){
-            this.total += this._pcparts.Storage.price_usd;
+            this.total += +this._pcparts.Storage.ComponentHead.Price;
 
           }
           if(this._pcparts.Videocard){
-            this.total += this._pcparts.Videocard.price_usd;
+            this.total += +this._pcparts.Videocard.ComponentHead.Price;
 
           }
 
@@ -204,6 +207,7 @@ export class PCPartsListComponent implements OnDestroy{
     }
 
     download() {
+      this.qrLoading = true;
       this.downloadUrl =  undefined;
       this.cdr.detectChanges();
       let doc = new jsPDF();

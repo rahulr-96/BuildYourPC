@@ -1,93 +1,154 @@
 <!-- <ng-template appPlaceholder ></ng-template> -->
-  <div class=" mr-auto">
-    <h1>Choose Your Parts</h1>
-      <!-- <qrcode *ngIf="downloadUrl" [qrdata]= "downloadUrl" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
-  <!-- <div class="ml-auto">
-    <button class="btn btn-primary" (click)="save()" >Save</button>
-  </div> -->
-</div>
+    <div class=" mr-auto">
+      <h3>Choose Your Parts</h3>
+        <!-- <qrcode *ngIf="downloadUrl" [qrdata]= "downloadUrl" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
+    <!-- <div class="ml-auto">
+      <button class="btn btn-primary" (click)="save()" >Save</button>
+    </div> -->
+  </div>
 
-<div class="table-responsive" [@routeAnimations]>
-  <table id="table" class="table">
-    <thead>
-      <tr>
-        <th scope="col">Component</th>
-        <th scope="col">Selection</th>
-        <th scope="col">Price</th>
-        <th scope="col">
-          <div class="btn-group" role="group">
-           <button class="btn btn-primary" (click)="save()" >Save</button>
-          <button class="btn btn-primary bi bi-qr-code" (click)="download()" ></button>
-          </div>
+  <div class="table-responsive" [@routeAnimations]>
+    <table id="table" class="table">
+      <thead>
+        <tr>
+          <th scope="col">Component</th>
+          <th scope="col">Selection</th>
+          <th scope="col">Price</th>
+          <th scope="col">
+            <div class="btn-group" role="group">
+            <button class="btn btn-primary" (click)="save()" >Save</button>
+            <button class="btn btn-primary "[disabled]="qrLoading" (click)="download()" >
+              <span class="bi bi-qr-code"  *ngIf="!qrLoading" role="status" aria-hidden="true"></span>
+              <span class="spinner-border spinner-border-sm" *ngIf="qrLoading" role="status" aria-hidden="true"></span>
+            </button>
+            </div>
 
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">CPU</th>
-        <td *ngIf="_pcparts.CPU; else addCPUButton">{{_pcparts.CPU.name}}</td>
-        <td>{{_pcparts.CPU ? (_pcparts.CPU.price_usd | number): null}}</td>
-        <td *ngIf="_pcparts.CPU"><button class="btn btn-primary btn-sm" (click)="removePart(1)">Remove</button></td>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">
+            <div class="media">
+              <img class="mr-1" style="height:50px; width:50px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-cpu.png"  alt="cpu">
+              <div class="media-body">
+                CPU
+              </div>
+              
+            </div>
+          </th>
+          <td *ngIf="_pcparts.CPU; else addCPUButton">{{_pcparts.CPU.ComponentHead.ComponentName}}</td>
+          <td>{{_pcparts.CPU ? (_pcparts.CPU.ComponentHead.Price | number): null}}</td>
+          <td *ngIf="_pcparts.CPU"><button class="btn btn-primary btn-sm" (click)="removePart(1)">Remove</button></td>
 
-      </tr>
-      <tr>
-        <th scope="row">CPU Cooler</th>
-        <td *ngIf="_pcparts.CPUCooler; else addCPUCoolerButton">{{_pcparts.CPUCooler.name}}</td>
-        <td>{{_pcparts.CPUCooler ? (_pcparts.CPUCooler.price_usd | number): null}}</td>
-        <td *ngIf="_pcparts.CPUCooler"><button class="btn btn-primary btn-sm" (click)="removePart(2)">Remove</button></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <div class="media">
+              <img class="mr-1" style="height:50px; width:50px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-cpucooler.png"  alt="cpu">
+              <div class="media-body">
+                CPU Cooler
+              </div> 
+            </div>
+          </th>
+          <td *ngIf="_pcparts.CPUCooler; else addCPUCoolerButton">{{_pcparts.CPUCooler.ComponentHead.ComponentName}}</td>
+          <td>{{_pcparts.CPUCooler ? (_pcparts.CPUCooler.ComponentHead.Price | number): null}}</td>
+          <td *ngIf="_pcparts.CPUCooler"><button class="btn btn-primary btn-sm" (click)="removePart(2)">Remove</button></td>
 
-      <tr>
-        <th scope="row">Motherboard</th>
-        <td *ngIf="_pcparts.MotherBoard; else addMotherBoardButton">{{_pcparts.MotherBoard.name}}</td>
-        <td>{{_pcparts.MotherBoard ? (_pcparts.MotherBoard.price_usd | number): null}}</td>
-        <td *ngIf="_pcparts.MotherBoard"><button class="btn btn-primary btn-sm" (click)="removePart(3)">Remove</button></td>
+        <tr>
+          <th scope="row">
+            <div class="media">
+              <img class="mr-1" style="height:50px; width:50px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-motherboard.png"  alt="cpu">
+              <div class="media-body">
+                Motherboard
+              </div> 
+            </div>
+          </th>
+          <td *ngIf="_pcparts.MotherBoard; else addMotherBoardButton">{{_pcparts.MotherBoard.ComponentHead.ComponentName}}</td>
+          <td>{{_pcparts.MotherBoard ? (_pcparts.MotherBoard.ComponentHead.Price | number): null}}</td>
+          <td *ngIf="_pcparts.MotherBoard"><button class="btn btn-primary btn-sm" (click)="removePart(3)">Remove</button></td>
 
-      </tr>
-      <tr>
-        <th scope="row">Memory</th>
-        <td *ngIf="_pcparts.Memory; else addMemoryButton">{{_pcparts.Memory.name}}</td>
-        <td>{{_pcparts.Memory ? (_pcparts.Memory.price_usd | number) : null}}</td>
-        <td *ngIf="_pcparts.Memory"><button class="btn btn-primary btn-sm" (click)="removePart(4)">Remove</button></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <div class="media">
+              <img class="mr-1" style="height:50px; width:50px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-memory.png"  alt="cpu">
+              <div class="media-body">
+                Memory
+              </div> 
+            </div>
+          </th>
+          <td *ngIf="_pcparts.Memory; else addMemoryButton">{{_pcparts.Memory.ComponentHead.ComponentName}}</td>
+          <td>{{_pcparts.Memory ? (_pcparts.Memory.ComponentHead.Price | number) : null}}</td>
+          <td *ngIf="_pcparts.Memory"><button class="btn btn-primary btn-sm" (click)="removePart(4)">Remove</button></td>
 
-      </tr>
-      <tr>
-        <th scope="row">Storage</th>
-        <td *ngIf="_pcparts.Storage; else addStorageButton">{{_pcparts.Storage.name}}</td>
-        <td>{{_pcparts.Storage ? (_pcparts.Storage.price_usd | number): null}}</td>
-        <td *ngIf="_pcparts.Storage"><button class="btn btn-primary btn-sm" (click)="removePart(5)">Remove</button></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <div class="media">
+              <img class="mr-1" style="height:50px; width:50px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-ssd.png"  alt="cpu">
+              <div class="media-body">
+                Storage
+              </div> 
+            </div>
+          </th>
+          <td *ngIf="_pcparts.Storage; else addStorageButton">{{_pcparts.Storage.ComponentHead.ComponentName}}</td>
+          <td>{{_pcparts.Storage ? (_pcparts.Storage.ComponentHead.Price | number): null}}</td>
+          <td *ngIf="_pcparts.Storage"><button class="btn btn-primary btn-sm" (click)="removePart(5)">Remove</button></td>
 
-      </tr>
-      <tr>
-        <th scope="row">Videocard</th>
-        <td *ngIf="_pcparts.Videocard; else addVideocardButton">{{_pcparts.Videocard.name}}</td>
-        <td>{{_pcparts.Videocard ? (_pcparts.Videocard.price_usd | number) : null}}</td>
-        <td *ngIf="_pcparts.Videocard"><button class="btn btn-primary btn-sm" (click)="removePart(6)">Remove</button></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <div class="media">
+              <img class="mr-1" style="height:50px; width:50px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-videocard.png"  alt="cpu">
+              <div class="media-body">
+                Videocard
+              </div> 
+            </div>
+          </th>
+          <td *ngIf="_pcparts.Videocard; else addVideocardButton">{{_pcparts.Videocard.ComponentHead.ComponentName}}</td>
+          <td>{{_pcparts.Videocard ? (_pcparts.Videocard.ComponentHead.Price | number) : null}}</td>
+          <td *ngIf="_pcparts.Videocard"><button class="btn btn-primary btn-sm" (click)="removePart(6)">Remove</button></td>
 
-      </tr>
-      <tr>
-        <th scope="row">Case</th>
-        <td *ngIf="_pcparts.Case; else addCaseButton">{{_pcparts.Case.name}}</td>
-        <td>{{_pcparts.Case ? (_pcparts.Case.price_usd | number) : null}}</td>
-        <td *ngIf="_pcparts.Case"><button class="btn btn-primary btn-sm" (click)="removePart(7)">Remove</button></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <div class="media">
+              <img class="mr-1" style="height:50px; width:50px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-case.png"  alt="cpu">
+              <div class="media-body">
+                Case
+              </div> 
+            </div>
+          </th>
+          <td *ngIf="_pcparts.Case; else addCaseButton">{{_pcparts.Case.ComponentHead.ComponentName}}</td>
+          <td>{{_pcparts.Case ? (_pcparts.Case.ComponentHead.Price | number) : null}}</td>
+          <td *ngIf="_pcparts.Case"><button class="btn btn-primary btn-sm" (click)="removePart(7)">Remove</button></td>
 
-      </tr>
-      <tr>
-        <th scope="row">Powersupply</th>
-        <td *ngIf="_pcparts.Powersupply; else addPowersupplyButton">{{_pcparts.Powersupply.name}}</td>
-        <td>{{_pcparts.Powersupply ? (_pcparts.Powersupply.price_usd | number) : null}}</td>
-        <td *ngIf="_pcparts.Powersupply"><button class="btn btn-primary btn-sm" (click)="removePart(8)">Remove</button></td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td></td>
-        <td></td>
-        <td class="h2">{{total | number}}</td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
+        </tr>
+        <tr>
+          <th scope="row">
+            <div class="media">
+              <img class="mr-1" style="height:50px; width:50px" src="https://cdna.pcpartpicker.com/static/forever/img/nav-powersupply.png"  alt="cpu">
+              <div class="media-body">
+                Power Supply
+              </div> 
+            </div>
+          </th>
+          <td *ngIf="_pcparts.Powersupply; else addPowersupplyButton">{{_pcparts.Powersupply.ComponentHead.ComponentName}}</td>
+          <td>{{_pcparts.Powersupply ? (_pcparts.Powersupply.ComponentHead.Price | number) : null}}</td>
+          <td *ngIf="_pcparts.Powersupply"><button class="btn btn-primary btn-sm" (click)="removePart(8)">Remove</button></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="h2">{{total | number}}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  
 
   <ng-template #addCPUButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(1)">Add</button></td></ng-template>
   <ng-template #addCPUCoolerButton><td><button class="btn btn-primary btn-sm" (click)="addPcPart(2)">Add</button></td></ng-template>

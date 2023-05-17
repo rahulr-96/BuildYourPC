@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-rangeSlider',
@@ -10,7 +10,7 @@ export class RangeSliderComponent implements OnInit {
   public slider: ElementRef;
   name = 'Angular';
   rangeMin: number = 0;
-  rangeMax: number = 3000;
+  @Input() rangeMax: number;
   thumbsize: number = 14;
   minValue: number;
   maxValue: number;
@@ -23,6 +23,9 @@ export class RangeSliderComponent implements OnInit {
   minStyleTop: string;
   maxStyleTop: string;
   rangeWidth: number = 200;
+  sliderBackground = '';
+  @Output() rangeChange = new EventEmitter<RangeEvent>();
+
   ngOnInit() {
     this.init();
   }
@@ -64,6 +67,7 @@ export class RangeSliderComponent implements OnInit {
     this.maxValue = rangemax;
 
     this.draw(avgvalue);
+    this.fillColour();
 
   }
 
@@ -73,5 +77,38 @@ export class RangeSliderComponent implements OnInit {
     var avgvalue = Math.floor((minvalue + maxvalue) / 2);
 
     this.draw(avgvalue);
+    this.fillColour();
   }
+  fillColour() {
+    var minvalue = this.minValue;
+    var maxvalue = this.maxValue;
+    console.log(this.rangeMax)
+    console.log(this.minValue)
+
+    // let percent1 = (minvalue / this.maxOfMin) * 100;
+    let percent1 =
+      (this.minValue / (this.rangeMax + this.rangeMax * 0.1)) * 100;
+    let percent2 =
+      ((this.maxValue + this.rangeMax * 0.1) /
+        (this.rangeMax + this.rangeMax * 0.1)) *
+      100;
+    // this.sliderLeft= percent1 + '%'
+    // this.sliderRight= percent2 + '%'
+    this.sliderBackground = `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`;
+    // percent2 = (sliderTwo.value / sliderMaxValue) * 100;
+    // sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`;
+  }
+
+  rangeChangeEvent(){
+    let objRangeEvent: RangeEvent = new RangeEvent();
+    objRangeEvent.rangeMinValue = this.minValue;
+    objRangeEvent.rangeMaxValue = this.maxValue;
+    this.rangeChange.emit(objRangeEvent);
+  }
+
+}
+
+export class RangeEvent{
+  rangeMinValue: number;
+  rangeMaxValue: number;
 }

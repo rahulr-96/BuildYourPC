@@ -50,7 +50,7 @@ export class DataTableWrapperComponent implements OnInit{
 
 
   tableFilter = new FormControl();
-  @ViewChild('testInput', { static: false }) tableFilterElem: ElementRef;
+  @ViewChild('tableInput', { static: false }) tableFilterElem: ElementRef;
   @ViewChild(PlaceholderDirective, {static: false}) alertHost: PlaceholderDirective;
   private closeSub: Subscription;
   constructor(private pcPartsService: PCPartsService, private router:Router, private toastService: ToastService) {}
@@ -78,7 +78,10 @@ export class DataTableWrapperComponent implements OnInit{
       this.filter = null;
     } else {
       this.filter = index;
-      this.tableFilterElem.nativeElement.focus();
+      //this.tableFilterElem.nativeElement.focus();
+      setTimeout(()=>{
+        this.tableFilterElem.nativeElement.focus();
+        },100)
 
     }
   }
@@ -173,5 +176,7 @@ ngOnChanges(changes: SimpleChanges){
   console.log("ngOnChanges")
   this.tableContentObs.next(this.tableContent);
 }
+
+findColumnValue = (element:unknown, column:string):string => column.split('.').reduce((acc, cur) => acc[cur], element) as string;
 
 }

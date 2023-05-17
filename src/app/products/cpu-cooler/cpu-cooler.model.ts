@@ -1,10 +1,10 @@
+import { ComponentHead } from "src/app/shared/component-head.model";
+
 export class CPUCooler {
-  constructor(
-    public fan_rpm: string,
-    public name: string,
-    public noise_level: string,
-    public price_usd: number,
-    public rating: number,
-    public rating_count: number,
-  ){}
+  public id: number;
+  public fan_rpm: string;
+  public noise_level: string;
+  public rating: number;
+  public rating_count: number;
+  public ComponentHead: ComponentHead
 }

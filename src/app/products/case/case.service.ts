@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import { Case } from "src/app/products/Case/Case.model";
+import { Case } from "./case.model";
 
 @Injectable()
 export class CaseService{

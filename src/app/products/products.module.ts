@@ -16,6 +16,7 @@ import { ProductsComponent } from "./products.component";
 import { ProductsRoutingModule } from "./products.routing.module";
 import { StorageComponent } from "./storage/storage.component";
 import { VideocardComponent } from "./videocard/videocard.component";
+import { CommonModule } from "@angular/common";
 
 
 @NgModule({
@@ -32,6 +33,6 @@ import { VideocardComponent } from "./videocard/videocard.component";
         PowersupplyComponent,
         ProductFilterComponent
     ],
-    imports: [RouterModule, SharedModule, ReactiveFormsModule, ProductsRoutingModule]
+    imports: [RouterModule, SharedModule, ReactiveFormsModule, ProductsRoutingModule, CommonModule, FormsModule]
 })
 export class ProductsModule{}
