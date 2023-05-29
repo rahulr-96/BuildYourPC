@@ -1,5 +1,5 @@
-import {style,transition,trigger,animate,state,} from '@angular/animations';
-import {Component,ComponentFactoryResolver,ElementRef,Input,OnInit,SimpleChanges,ViewChild,} from '@angular/core';
+import { style, transition, trigger, animate, state, } from '@angular/animations';
+import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, SimpleChanges, ViewChild, } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -12,6 +12,14 @@ import { PlaceholderDirective } from '../placeholder/placeholder.directive';
 
 import { Column, DataTableType } from './datatabletype.model';
 import { ToastService } from '../toast/toast.service';
+import { Case } from 'src/app/products/case/case.model';
+import { CPUCooler } from 'src/app/products/cpu-cooler/cpu-cooler.model';
+import { CPU } from 'src/app/products/cpu/cpu.model';
+import { Memory } from 'src/app/products/memory/memory.model';
+import { MotherBoard } from 'src/app/products/motherboard/motherboard.model';
+import { Powersupply } from 'src/app/products/powersupply/powersupply.model';
+import { Videocard } from 'src/app/products/videocard/videocard.model';
+import { Storage } from 'src/app/products/storage/storage.model';
 
 @Component({
   selector: 'data-table-wrapper',
@@ -29,7 +37,7 @@ import { ToastService } from '../toast/toast.service';
 
   ],
 })
-export class DataTableWrapperComponent implements OnInit{
+export class DataTableWrapperComponent implements OnInit {
 
   page: number = 1;
 
@@ -51,25 +59,25 @@ export class DataTableWrapperComponent implements OnInit{
 
   tableFilter = new FormControl();
   @ViewChild('tableInput', { static: false }) tableFilterElem: ElementRef;
-  @ViewChild(PlaceholderDirective, {static: false}) alertHost: PlaceholderDirective;
+  @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
   private closeSub: Subscription;
-  constructor(private pcPartsService: PCPartsService, private router:Router, private toastService: ToastService) {}
+  constructor(private pcPartsService: PCPartsService, private router: Router, private toastService: ToastService) { }
 
   public ngOnInit(): void {
 
     this.tableFilter.valueChanges.
-    pipe(startWith(''), debounceTime(500))
+      pipe(startWith(''), debounceTime(500))
       .subscribe((val: string) => {
-          if(val != ""){
-            this.tableContentObs.next(
-              this.tableContent.filter(
-                (data) => data[this.tableConfig.columns[0].dataProperty].toLowerCase().indexOf(val.toLowerCase()) !== -1
-              )
-            );
-          }
-          else{
-            this.tableContentObs.next(this.tableContent);
-          }
+        if (val != "") {
+          this.tableContentObs.next(
+            this.tableContent.filter(
+              (data) => data[this.tableConfig.columns[0].dataProperty].toLowerCase().indexOf(val.toLowerCase()) !== -1
+            )
+          );
+        }
+        else {
+          this.tableContentObs.next(this.tableContent);
+        }
       });
   }
 
@@ -79,33 +87,33 @@ export class DataTableWrapperComponent implements OnInit{
     } else {
       this.filter = index;
       //this.tableFilterElem.nativeElement.focus();
-      setTimeout(()=>{
+      setTimeout(() => {
         this.tableFilterElem.nativeElement.focus();
-        },100)
+      }, 100)
 
     }
   }
 
-  sort(column: Column){
+  sort(column: Column) {
 
-    if(column.sortable){
+    if (column.sortable) {
       const sortArr = this.tableContentObs.value.slice();
 
-      if (column.sortOrder == true){
+      if (column.sortOrder == true) {
         this.tableContentObs.next(sortArr.sort((a, b) =>
-        a[column.dataProperty] < b[column.dataProperty] ? 1 : a[column.dataProperty] > b[column.dataProperty] ? -1 : 0));
+          a[column.dataProperty] < b[column.dataProperty] ? 1 : a[column.dataProperty] > b[column.dataProperty] ? -1 : 0));
         column.sortOrder = !column.sortOrder;
       }
-      else{
+      else {
         this.tableContentObs.next(sortArr.sort((a, b) =>
-        a[column.dataProperty] > b[column.dataProperty] ? 1 : a[column.dataProperty] < b[column.dataProperty] ? -1 : 0))
+          a[column.dataProperty] > b[column.dataProperty] ? 1 : a[column.dataProperty] < b[column.dataProperty] ? -1 : 0))
         column.sortOrder = !column.sortOrder
       }
     }
   }
 
-  rowAction(actionFor: string, columnData:any){
-    switch(actionFor){
+  rowAction(actionFor: string, columnData: any) {
+    switch (actionFor) {
 
       case products.PCPART_CPU:
         var objPcParts = new PCParts();
@@ -170,13 +178,18 @@ export class DataTableWrapperComponent implements OnInit{
 
   showToast(pcPart: string) {
     this.toastService.showInfoToast('PC Build', pcPart + ' Added');
-}
+  }
 
-ngOnChanges(changes: SimpleChanges){
-  console.log("ngOnChanges")
-  this.tableContentObs.next(this.tableContent);
-}
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("ngOnChanges")
+    this.tableContentObs.next(this.tableContent);
+  }
 
-findColumnValue = (element:unknown, column:string):string => column.split('.').reduce((acc, cur) => acc[cur], element) as string;
+  findColumnValue = (element: unknown, column: string): string => column.split('.').reduce((acc, cur) => acc[cur], element) as string;
+
+  addBuild(columnData: CPU | CPUCooler | MotherBoard | Memory | Storage | Videocard | Case | Powersupply) {
+    this.pcPartsService.setBuilld(columnData);
+    this.router.navigate(['/list']);
+  }
 
 }

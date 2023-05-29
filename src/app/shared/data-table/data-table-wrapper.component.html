@@ -40,7 +40,7 @@
             <ng-template #action_content>
               <div *ngFor="let action of tableConfig.rowActions">
                 <button class="btn btn-primary btn-sm"
-                  (click)="rowAction(action.actionFor,columnData)">{{action.label}}</button>
+                  (click)="addBuild(columnData)">{{action.label}}</button>
               </div>
             </ng-template>
           </td>

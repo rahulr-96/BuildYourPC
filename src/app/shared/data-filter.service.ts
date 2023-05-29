@@ -12,6 +12,7 @@ import { StorageService } from "../products/storage/storage.service";
 import { VideocardService } from "../products/videocard/videocard.service";
 import { CPU } from "../products/cpu/cpu.model";
 import { SupabaseService } from "../supabase.service";
+import { ComponentHead } from "./component-head.model";
 
 @Injectable({ providedIn: 'root' })
 export class DataFilterService {
@@ -31,7 +32,7 @@ export class DataFilterService {
 
   isFilter: string;
   filterChanged = new Subject<string>();
-  searchChanged = new Subject<SearchResult[]>();
+  searchChanged = new Subject<ComponentHead[]>();
   filterdata = new Subject<FilterCriteria[]>();
 
   getisFilter() {
@@ -196,7 +197,7 @@ export class DataFilterService {
       "searchval": val
     })
     .limit(3)
-    .returns<SearchResult[]>()
+    .returns<ComponentHead[]>()
 
     this.searchChanged.next(searchResult.data ? searchResult.data : [])
    // return searchResult.data
@@ -221,13 +222,13 @@ export class FilterValue {
   isSelected: boolean;
 }
 
-export class SearchResult{
-  id: number;
-  name: string;
-  ComponentTypeName: string;
-  ComponentTypeCode: string;
-  price: string;
-}
+// export class SearchResult{
+//   id: number;
+//   name: string;
+//   ComponentTypeName: string;
+//   ComponentTypeCode: string;
+//   price: string;
+// }
 
 
 export const FILTERCRITERIA_MANUFACTURER = 'Manufacturer'

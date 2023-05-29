@@ -5,14 +5,32 @@ import { CPU } from "../products/cpu/cpu.model";
 import { PCPART_CASE, PCPART_CPU, PCPART_CPUCOOLER, PCPART_MEMORY, PCPART_MOTHERBOARD, PCPART_POWERSUPPLY, PCPART_STORAGE, PCPART_VIDEOCARD, Products } from "../products/products.type";
 import { DataStorageService } from "../shared/data-storage.service";
 import { PCParts } from "./pcparts.model";
+import { BuildDetails } from "./build-details.model";
+import { MotherBoard } from "../products/motherboard/motherboard.model";
+import { Memory } from "../products/memory/memory.model";
+import { Storage } from "../products/storage/storage.model";
+import { Videocard } from "../products/videocard/videocard.model";
+import { Case } from "../products/case/case.model";
+import { Powersupply } from "../products/powersupply/powersupply.model";
+import { ComponentType } from "../shared/component-type.model";
 
 @Injectable()
 export class PCPartsService{
 
     pcParts: PCParts = new PCParts();
+    build: BuildDetails[];
 
     pcPartsChanged = new Subject<PCParts>();
+    buildChanged = new Subject<BuildDetails[]>();
 
+    _currentBuildHeadID: number;
+
+    ObslstComponentType = new Subject<ComponentType[]>();
+    lstComponentType : ComponentType[]
+
+    constructor(){
+
+    }
 
     storePCparts(part: string, objPart:PCParts){
 
@@ -63,9 +81,44 @@ export class PCPartsService{
         this.pcParts = objParts;
         this.pcPartsChanged.next(this.pcParts);
     }
+    //todo make a common model or type for these parts
+    setBuilld(objParts:CPU | CPUCooler | MotherBoard | Memory | Storage | Videocard | Case | Powersupply){
+
+        const objBuild = new BuildDetails(objParts.ComponentHead.ComponentHeadID, 1, objParts, this.currentBuildHeadID)
+        objBuild.ComponentHead = objParts.ComponentHead;
+        this.storeBuild(objBuild)
+    }
 
     getPCparts(){
         return this.pcParts;
     }
+
+    getBuild(){
+        return this.build;
+    }
+
+    storeBuild(objPart:BuildDetails){
+        this.build = [...this.build.filter(a => a.ComponentHead.ComponentTypeID != objPart.ComponentHead.ComponentTypeID), objPart ]
+        this.buildChanged.next(this.build)
+    }
+
+    updateBuild(lstBuildDetails: BuildDetails[]){
+        this.build = lstBuildDetails;
+        this.buildChanged.next(this.build);
+    }
+
+    get currentBuildHeadID(){
+        if(this._currentBuildHeadID){
+            return this._currentBuildHeadID;
+        }
+        else{
+            return 0;
+        }
+    }
+    set currentBuildHeadID(val: number){
+        this._currentBuildHeadID = val;
+    }
+
+
 
 }

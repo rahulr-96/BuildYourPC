@@ -17,11 +17,11 @@
       <div class="list-group list-group-flush">
         <a href="#" *ngFor="let item of lstSearchResults" class="list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{item.name}}</h5>
+            <h5 class="mb-1">{{item.ComponentName}}</h5>
             <button class="btn btn-primary btn-sm" (click)="setPcPart(item)">Add</button>
           </div>
           <p class="mb-1">{{item.ComponentTypeName}}</p>
-          <small class="text-muted">{{item.price | currency:'USD'}}</small>
+          <small class="text-muted">{{item.Price | currency:'USD'}}</small>
         </a>
       </div>
     </div>

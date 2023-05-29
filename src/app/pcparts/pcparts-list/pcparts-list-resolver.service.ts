@@ -4,20 +4,23 @@ import { Observable } from "rxjs";
 import { DataStorageService } from "src/app/shared/data-storage.service";
 import { PCParts } from "../pcparts.model";
 import { PCPartsService } from "../pcparts.service";
+import { BuildDetails } from "../build-details.model";
 
 @Injectable({ providedIn: 'root' })
-export class PCPartsResolverService implements Resolve<PCParts> {
+export class PCPartsResolverService implements Resolve<BuildDetails[]> {
 
     constructor(private dataStorageService: DataStorageService, private pcPartsService: PCPartsService) { }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): PCParts | Observable<PCParts> | Promise<PCParts> {
-        const pcparts = this.pcPartsService.getPCparts();
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): BuildDetails[] | Observable<BuildDetails[]> | Promise<BuildDetails[]> {
+        // const pcparts = this.pcPartsService.getPCparts();
+        const build = this.pcPartsService.getBuild();
 
-        if(Object.keys(pcparts).length == 0){
-            return this.dataStorageService.fetchPCParts();
+        if(!build){
+            this.dataStorageService.getAllComponentTypes();
+            return this.dataStorageService.getBuild();
         }
         else{
-           return pcparts;
+           return build;
         }
 
     }
