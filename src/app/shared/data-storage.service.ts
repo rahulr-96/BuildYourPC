@@ -377,7 +377,6 @@ export class DataStorageService {
         break;
 
       case products.PCPART_CPUCOOLER:
-        var objPcParts = new PCParts();
         const cpucoolers = this.cpuCoolerService.getCPUCoolers()
         if (cpucoolers.length === 0) {
           this.fetchCPUCooler()
@@ -403,7 +402,6 @@ export class DataStorageService {
         break;
 
       case products.PCPART_MOTHERBOARD:
-        var objPcParts = new PCParts();
         const motherboards = this.motherBoardService.getMotherBoards()
         if (motherboards.length === 0) {
           this.fetchMotherBoard()
@@ -430,7 +428,6 @@ export class DataStorageService {
 
 
       case products.PCPART_MEMORY:
-        var objPcParts = new PCParts();
         const memorys = this.memoryService.getMemorys()
         if (memorys.length === 0) {
           this.fetchMemory()
@@ -456,7 +453,6 @@ export class DataStorageService {
         break;
 
       case products.PCPART_STORAGE:
-        var objPcParts = new PCParts();
         const storages = this.storageService.getStorages()
         if (storages.length === 0) {
           this.fetchStorage()
@@ -482,7 +478,6 @@ export class DataStorageService {
         break;
 
       case products.PCPART_VIDEOCARD:
-        var objPcParts = new PCParts();
         const videocards = this.videocardService.getVideocards()
         if (videocards.length === 0) {
           this.fetchVideocard()
@@ -508,7 +503,6 @@ export class DataStorageService {
         break;
 
       case products.PCPART_CASE:
-        var objPcParts = new PCParts();
         const cases = this.caseService.getCases()
         if (cases.length === 0) {
           this.fetchCase()
@@ -534,7 +528,6 @@ export class DataStorageService {
         break;
 
       case products.PCPART_POWERSUPPLY:
-        var objPcParts = new PCParts();
         const powerSupplies = this.powersupplyService.getPowersupplys()
         if (powerSupplies.length === 0) {
           this.fetchPowersupply()

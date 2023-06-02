@@ -71,7 +71,8 @@ export class ProductFilterComponent implements OnInit, OnDestroy {
       });
     objFilterCriteria.query = (item) =>
       objFilterCriteria.selectedValues.some((substr) =>
-        item[button.filterKey].toLowerCase().startsWith(substr)
+        // item[button.filterKey].toLowerCase().startsWith(substr)
+        this.findColumnValue(item,button.filterKey).toLowerCase().startsWith(substr)
       );
 
     this.filterCriterias = this.filterCriterias.filter(item => item.name != button.name)
@@ -98,7 +99,8 @@ export class ProductFilterComponent implements OnInit, OnDestroy {
       objFilterCriteria.name = button.name;
       objFilterCriteria.maxValue = rangeEvent.rangeMaxValue;
       objFilterCriteria.minValue = rangeEvent.rangeMinValue;
-      objFilterCriteria.query = item => item[button.filterKey] <= objFilterCriteria.maxValue &&  item[button.filterKey] >= objFilterCriteria.minValue
+      // objFilterCriteria.query = item => item[button.filterKey] <= objFilterCriteria.maxValue &&  item[button.filterKey] >= objFilterCriteria.minValue
+      objFilterCriteria.query = item => +this.findColumnValue(item,button.filterKey) <= objFilterCriteria.maxValue &&  +this.findColumnValue(item,button.filterKey) >= objFilterCriteria.minValue
       this.filterCriterias = [...this.filterCriterias, objFilterCriteria];
     }
 
@@ -125,4 +127,7 @@ export class ProductFilterComponent implements OnInit, OnDestroy {
     this.filterCriterias = [];
     this._dataFilterService.filterProducts(this.filterCriterias);
   }
+
+  findColumnValue = (element: unknown, column: string): string => column.split('.').reduce((acc, cur) => acc[cur], element) as string;
+
 }
