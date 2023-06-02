@@ -158,7 +158,11 @@
           <th scope="col">Price</th>
           <th scope="col">
             <div class="btn-group" role="group">
-            <button class="btn btn-primary" (click)="save()" >Save</button>
+            <!-- <button class="btn btn-primary" (click)="save()" >Save</button> -->
+            <button class="btn btn-primary "[disabled]="saveLoading" (click)="save()" >
+              <span *ngIf="!saveLoading"  aria-hidden="true">Save</span>
+              <span class="spinner-border spinner-border-sm" *ngIf="saveLoading" aria-hidden="true"></span>
+            </button>
             <button class="btn btn-primary "[disabled]="qrLoading" (click)="download()" >
               <span class="bi bi-qr-code"  *ngIf="!qrLoading" role="status" aria-hidden="true"></span>
               <span class="spinner-border spinner-border-sm" *ngIf="qrLoading" role="status" aria-hidden="true"></span>
@@ -180,7 +184,7 @@
             </th>
               <ng-container [ngTemplateOutlet]="item.ComponentHead.ComponentName != '' ? tbl_row : addCaseButton" [ngTemplateOutletContext]="{item:item}"></ng-container>
               <td>{{item.ComponentHead.Price | number}}</td>
-              <td *ngIf="item.ComponentHead.ComponentName != ''"><button class="btn btn-primary btn-sm" (click)="removePart(item.ComponentHead.ComponentType.ComponentTypeID)">Remove</button></td>
+              <td *ngIf="item.ComponentHead.ComponentName != ''"><button class="btn btn-primary btn-sm" (click)="removePart(item.ComponentHead)">Remove</button></td>
           </tr>
       </tbody>
   </table>

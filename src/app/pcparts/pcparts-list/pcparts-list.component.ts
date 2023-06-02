@@ -5,10 +5,8 @@ import { PCPartsService } from "../pcparts.service";
 import { Router } from "@angular/router";
 import { DataStorageService } from "../../shared/data-storage.service";
 import { Subscription } from "rxjs";
-import { PCPART_CASE, PCPART_CPU, PCPART_CPUCOOLER, PCPART_MEMORY, PCPART_MOTHERBOARD, PCPART_POWERSUPPLY, PCPART_STORAGE, PCPART_VIDEOCARD } from "../../products/products.type";
 
-import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../shared/shared.module';
-import { EventTypes } from "src/app/shared/toast/models/event-types";
+import { routeAnimations } from '../../shared/shared.module';
 import { ToastService } from "src/app/shared/toast/toast.service";
 
 import { jsPDF } from "jspdf";
@@ -16,11 +14,10 @@ import autoTable from 'jspdf-autotable';
 import { FileUpload } from "../file-upload";
 import { FileUploadService } from "../file-upload.service";
 import { Modal } from 'bootstrap';
-import { PlaceholderDirective } from "src/app/shared/placeholder/placeholder.directive";
 import { BuildDetails } from "../build-details.model";
 import { ComponentHead } from "src/app/shared/component-head.model";
 import { ComponentType } from "src/app/shared/component-type.model";
-import { first, map } from "rxjs/operators";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: 'app-pcparts-list',
@@ -34,7 +31,7 @@ export class PCPartsListComponent implements OnDestroy {
 
   //@ViewChild(PlaceholderDirective, {static: false}) alertHost: PlaceholderDirective;
 
-  subscription: Subscription;
+  //subscription: Subscription;
   buildSubscription: Subscription;
 
   constructor(private pcPartsService: PCPartsService, private router: Router,
@@ -54,6 +51,7 @@ export class PCPartsListComponent implements OnDestroy {
   private urlSub: Subscription;
 
   qrLoading: boolean = false;
+  saveLoading: boolean = false;
 
   lstComponentType: ComponentType[];
 
@@ -63,14 +61,14 @@ export class PCPartsListComponent implements OnDestroy {
 
     //this._pcparts = this.pcPartsService.getPCparts();
     const tempbuild = this.pcPartsService.getBuild();
-    this.checkBuild(tempbuild)
+    this.checkBuild(tempbuild ?? [])
     // this._build = [...tempbuild, ...this.checkBuild(tempbuild)] ;
     this.findTotal();
 
-    this.subscription = this.pcPartsService.pcPartsChanged.subscribe(data => {
-      this._pcparts = data;
-      this.findTotal();
-    })
+    // this.subscription = this.pcPartsService.pcPartsChanged.subscribe(data => {
+    //   this._pcparts = data;
+    //   this.findTotal();
+    // })
 
     this.buildSubscription = this.pcPartsService.buildChanged.subscribe(data => {
       this._build =data
@@ -123,15 +121,23 @@ export class PCPartsListComponent implements OnDestroy {
   }
 
   save() {
-    this.dataStorageService.savePCParts();
+    if(JSON.parse(localStorage.getItem('userData'))){
+      this.saveLoading = true;
+      this.dataStorageService.savePCParts().then(data=>{
+        this.saveLoading = false;
+      })
+    }
+    else{
+      this.router.navigate(['/auth'])
+    }
   }
 
-  fetch() {
-    this.dataStorageService.fetchPCParts();
-  }
+  // fetch() {
+  //   this.dataStorageService.fetchPCParts();
+  // }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    //this.subscription?.unsubscribe();
     this.urlSub.unsubscribe();
     this.buildSubscription.unsubscribe();
   }
@@ -269,7 +275,7 @@ export class PCPartsListComponent implements OnDestroy {
     }
     else{
       this.pcPartsService.ObslstComponentType
-      .pipe(first())
+      .pipe(take(2))
       .subscribe(data => {
         this.lstComponentType = data
         this.makeTable(lstBuildDetails)
@@ -278,10 +284,11 @@ export class PCPartsListComponent implements OnDestroy {
       return this.makeTable(lstBuildDetails);
   }
 
-  removePart(componentTypeID: number) {
+  removePart(componentHead: ComponentHead) {
     
-    this.pcPartsService.updateBuild(this._build.filter(a=> a.ComponentHead.ComponentTypeID != componentTypeID && a.ComponentHead.ComponentName != ''))
+    this.pcPartsService.updateBuild(this._build.filter(a=> a.ComponentHead.ComponentTypeID != componentHead.ComponentType.ComponentTypeID && a.ComponentHead.ComponentName != ''))
     this.findTotal();
+    this.showToast(componentHead.ComponentName)
   }
 
   makeTable( lstBuildDetails: BuildDetails[]){

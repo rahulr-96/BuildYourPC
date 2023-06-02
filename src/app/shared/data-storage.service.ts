@@ -269,11 +269,11 @@ export class DataStorageService {
     if (!this.pcPartsService.currentBuildHeadID) {
       this.insertheadrecord().then(data => {
         this.pcPartsService.currentBuildHeadID = data[0]?.build_headid;
-        this.insertDetail();
+        return this.insertDetail();
       })
     }
     else {
-      this.insertDetail();
+      return this.insertDetail();
     }
 
 
@@ -289,31 +289,31 @@ export class DataStorageService {
     //   });
   }
 
-  fetchPCParts() {
+  // fetchPCParts() {
 
-    const userData: {
-      email: string;
-      id: string;
-      _token: string;
-      _tokenExpirationDate: string;
-    } = JSON.parse(localStorage.getItem('userData'));
+  //   const userData: {
+  //     email: string;
+  //     id: string;
+  //     _token: string;
+  //     _tokenExpirationDate: string;
+  //   } = JSON.parse(localStorage.getItem('userData'));
 
-    if (userData) {
-      //this.getBuild(userData.id)
+  //   if (userData) {
+  //     //this.getBuild(userData.id)
 
-      return this.http
-        .get<PCParts>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/pcBuild/' + userData.id + '/pcParts.json')
-        // .subscribe(data => this.pcPartsService.storeAllPCparts(data))
-        .pipe(map((pcparts) => {
-          return pcparts
-        }), tap((pcparts) => {
-          this.pcPartsService.storeAllPCparts(pcparts);
-        })
-        );
+  //     return this.http
+  //       .get<PCParts>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/pcBuild/' + userData.id + '/pcParts.json')
+  //       // .subscribe(data => this.pcPartsService.storeAllPCparts(data))
+  //       .pipe(map((pcparts) => {
+  //         return pcparts
+  //       }), tap((pcparts) => {
+  //         this.pcPartsService.storeAllPCparts(pcparts);
+  //       })
+  //       );
 
 
-    }
-  }
+  //   }
+  // }
 
   async getBuild() {
 
@@ -340,6 +340,9 @@ export class DataStorageService {
       this.pcPartsService.currentBuildHeadID = data[0]?.build_headid;
       
       return data[0]?.build_details
+    }
+    else{
+      return [];
     }
   }
 

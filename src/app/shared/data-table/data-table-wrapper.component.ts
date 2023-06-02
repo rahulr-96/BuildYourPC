@@ -112,69 +112,69 @@ export class DataTableWrapperComponent implements OnInit {
     }
   }
 
-  rowAction(actionFor: string, columnData: any) {
-    switch (actionFor) {
+  // rowAction(actionFor: string, columnData: any) {
+  //   switch (actionFor) {
 
-      case products.PCPART_CPU:
-        var objPcParts = new PCParts();
-        objPcParts.CPU = columnData;
-        this.pcPartsService.storePCparts(actionFor, objPcParts);
-        this.router.navigate(['/list']);
-        break;
+  //     case products.PCPART_CPU:
+  //       var objPcParts = new PCParts();
+  //       objPcParts.CPU = columnData;
+  //       this.pcPartsService.storePCparts(actionFor, objPcParts);
+  //       this.router.navigate(['/list']);
+  //       break;
 
-      case products.PCPART_CPUCOOLER:
-        var objPcParts = new PCParts();
-        objPcParts.CPUCooler = columnData;
-        this.pcPartsService.storePCparts(actionFor, objPcParts);
-        this.router.navigate(['/list']);
-        break;
+  //     case products.PCPART_CPUCOOLER:
+  //       var objPcParts = new PCParts();
+  //       objPcParts.CPUCooler = columnData;
+  //       this.pcPartsService.storePCparts(actionFor, objPcParts);
+  //       this.router.navigate(['/list']);
+  //       break;
 
-      case products.PCPART_MOTHERBOARD:
-        var objPcParts = new PCParts();
-        objPcParts.MotherBoard = columnData;
-        this.pcPartsService.storePCparts(actionFor, objPcParts);
-        this.router.navigate(['/list']);
-        break;
+  //     case products.PCPART_MOTHERBOARD:
+  //       var objPcParts = new PCParts();
+  //       objPcParts.MotherBoard = columnData;
+  //       this.pcPartsService.storePCparts(actionFor, objPcParts);
+  //       this.router.navigate(['/list']);
+  //       break;
 
-      case products.PCPART_MEMORY:
-        var objPcParts = new PCParts();
-        objPcParts.Memory = columnData;
-        this.pcPartsService.storePCparts(actionFor, objPcParts);
-        this.router.navigate(['/list']);
-        break;
+  //     case products.PCPART_MEMORY:
+  //       var objPcParts = new PCParts();
+  //       objPcParts.Memory = columnData;
+  //       this.pcPartsService.storePCparts(actionFor, objPcParts);
+  //       this.router.navigate(['/list']);
+  //       break;
 
-      case products.PCPART_STORAGE:
-        var objPcParts = new PCParts();
-        objPcParts.Storage = columnData;
-        this.pcPartsService.storePCparts(actionFor, objPcParts);
-        this.router.navigate(['/list']);
-        break;
+  //     case products.PCPART_STORAGE:
+  //       var objPcParts = new PCParts();
+  //       objPcParts.Storage = columnData;
+  //       this.pcPartsService.storePCparts(actionFor, objPcParts);
+  //       this.router.navigate(['/list']);
+  //       break;
 
-      case products.PCPART_VIDEOCARD:
-        var objPcParts = new PCParts();
-        objPcParts.Videocard = columnData;
-        this.pcPartsService.storePCparts(actionFor, objPcParts);
-        this.router.navigate(['/list']);
-        break;
+  //     case products.PCPART_VIDEOCARD:
+  //       var objPcParts = new PCParts();
+  //       objPcParts.Videocard = columnData;
+  //       this.pcPartsService.storePCparts(actionFor, objPcParts);
+  //       this.router.navigate(['/list']);
+  //       break;
 
-      case products.PCPART_CASE:
-        var objPcParts = new PCParts();
-        objPcParts.Case = columnData;
-        this.pcPartsService.storePCparts(actionFor, objPcParts);
-        this.router.navigate(['/list']);
-        break;
+  //     case products.PCPART_CASE:
+  //       var objPcParts = new PCParts();
+  //       objPcParts.Case = columnData;
+  //       this.pcPartsService.storePCparts(actionFor, objPcParts);
+  //       this.router.navigate(['/list']);
+  //       break;
 
-      case products.PCPART_POWERSUPPLY:
-        var objPcParts = new PCParts();
-        objPcParts.Powersupply = columnData;
-        this.pcPartsService.storePCparts(actionFor, objPcParts);
-        this.router.navigate(['/list']);
-        break;
-    }
+  //     case products.PCPART_POWERSUPPLY:
+  //       var objPcParts = new PCParts();
+  //       objPcParts.Powersupply = columnData;
+  //       this.pcPartsService.storePCparts(actionFor, objPcParts);
+  //       this.router.navigate(['/list']);
+  //       break;
+  //   }
 
-    this.showToast(actionFor);
+  //   this.showToast(actionFor);
 
-  }
+  // }
 
   showToast(pcPart: string) {
     this.toastService.showInfoToast('PC Build', pcPart + ' Added');
@@ -190,6 +190,7 @@ export class DataTableWrapperComponent implements OnInit {
   addBuild(columnData: CPU | CPUCooler | MotherBoard | Memory | Storage | Videocard | Case | Powersupply) {
     this.pcPartsService.setBuilld(columnData);
     this.router.navigate(['/list']);
+    this.showToast(columnData.ComponentHead.ComponentName)
   }
 
 }
