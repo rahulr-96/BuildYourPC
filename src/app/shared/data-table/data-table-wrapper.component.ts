@@ -20,6 +20,7 @@ import { MotherBoard } from 'src/app/products/motherboard/motherboard.model';
 import { Powersupply } from 'src/app/products/powersupply/powersupply.model';
 import { Videocard } from 'src/app/products/videocard/videocard.model';
 import { Storage } from 'src/app/products/storage/storage.model';
+import { AvailableComponentTypes } from '../component-type.model';
 
 @Component({
   selector: 'data-table-wrapper',
@@ -71,7 +72,9 @@ export class DataTableWrapperComponent implements OnInit {
         if (val != "") {
           this.tableContentObs.next(
             this.tableContent.filter(
-              (data) => data[this.tableConfig.columns[0].dataProperty].toLowerCase().indexOf(val.toLowerCase()) !== -1
+              (data) => 
+              // data[this.tableConfig.columns[0].dataProperty].toLowerCase().indexOf(val.toLowerCase()) !== -1
+              this.findColumnValue(data, this.tableConfig.columns[0].dataProperty).toLowerCase().indexOf(val.toLowerCase()) !== -1
             )
           );
         }
@@ -99,14 +102,17 @@ export class DataTableWrapperComponent implements OnInit {
     if (column.sortable) {
       const sortArr = this.tableContentObs.value.slice();
 
+      // const key = this.findColumnValue(columnData, column.dataProperty)
+
+
       if (column.sortOrder == true) {
         this.tableContentObs.next(sortArr.sort((a, b) =>
-          a[column.dataProperty] < b[column.dataProperty] ? 1 : a[column.dataProperty] > b[column.dataProperty] ? -1 : 0));
+        this.findColumnValue(a, column.dataProperty) < this.findColumnValue(b, column.dataProperty) ? 1 : this.findColumnValue(a, column.dataProperty) > this.findColumnValue(b, column.dataProperty) ? -1 : 0));
         column.sortOrder = !column.sortOrder;
       }
       else {
         this.tableContentObs.next(sortArr.sort((a, b) =>
-          a[column.dataProperty] > b[column.dataProperty] ? 1 : a[column.dataProperty] < b[column.dataProperty] ? -1 : 0))
+        this.findColumnValue(a, column.dataProperty) > this.findColumnValue(b, column.dataProperty) ? 1 : this.findColumnValue(a, column.dataProperty) < this.findColumnValue(b, column.dataProperty) ? -1 : 0))
         column.sortOrder = !column.sortOrder
       }
     }
@@ -187,7 +193,7 @@ export class DataTableWrapperComponent implements OnInit {
 
   findColumnValue = (element: unknown, column: string): string => column.split('.').reduce((acc, cur) => acc[cur], element) as string;
 
-  addBuild(columnData: CPU | CPUCooler | MotherBoard | Memory | Storage | Videocard | Case | Powersupply) {
+  addBuild(columnData: AvailableComponentTypes) {
     this.pcPartsService.setBuilld(columnData);
     this.router.navigate(['/list']);
     this.showToast(columnData.ComponentHead.ComponentName)

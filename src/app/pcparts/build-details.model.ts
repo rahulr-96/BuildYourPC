@@ -7,6 +7,7 @@ import { Powersupply } from "../products/powersupply/powersupply.model";
 import { Storage } from "../products/storage/storage.model";
 import { Videocard } from "../products/videocard/videocard.model";
 import { ComponentHead } from "../shared/component-head.model";
+import { AvailableComponentTypes } from "../shared/component-type.model";
 import { BuildHead } from "./build-head.model";
 
 export class BuildDetails{
@@ -15,7 +16,7 @@ export class BuildDetails{
     constructor(
        public ComponentHeadID: number,
        public quantity: number,
-       public details: CPU | Case | CPUCooler | Videocard | MotherBoard | Memory | Storage | Powersupply | Videocard,
+       public details: AvailableComponentTypes,
        public build_headid: number
     ){}
 }

@@ -12,10 +12,12 @@ import { Storage } from "../products/storage/storage.model";
 import { Videocard } from "../products/videocard/videocard.model";
 import { Case } from "../products/case/case.model";
 import { Powersupply } from "../products/powersupply/powersupply.model";
-import { ComponentType } from "../shared/component-type.model";
+import { AvailableComponentTypes, ComponentType } from "../shared/component-type.model";
+import { BuildCommandFactory, BuildCommandMap } from "../shared/build-commands";
+import { CommandService } from "../shared/command.service";
 
 @Injectable()
-export class PCPartsService{
+export class PCPartsService {
 
     //pcParts: PCParts = new PCParts();
     build: BuildDetails[];
@@ -26,102 +28,57 @@ export class PCPartsService{
     _currentBuildHeadID: number;
 
     ObslstComponentType = new BehaviorSubject<ComponentType[]>([]);
-    lstComponentType : ComponentType[]
+    lstComponentType: ComponentType[];
 
-    constructor(){
+    private commandFactory: BuildCommandFactory;
 
+    constructor(private commandService: CommandService) {
+        this.commandFactory = new BuildCommandFactory();
     }
 
-    // storePCparts(part: string, objPart:PCParts){
-
-    //     switch(part){
-    //         case PCPART_CPU:
-    //             this.pcParts.CPU = objPart.CPU;
-    //             this.pcPartsChanged.next(this.pcParts)
-    //             break;
-    //         case PCPART_CPUCOOLER:
-    //             this.pcParts.CPUCooler = objPart.CPUCooler;
-    //             this.pcPartsChanged.next(this.pcParts);
-    //             break;
-
-    //         case PCPART_MOTHERBOARD:
-    //             this.pcParts.MotherBoard = objPart.MotherBoard;
-    //             this.pcPartsChanged.next(this.pcParts);
-    //             break;
-
-    //         case PCPART_MEMORY:
-    //             this.pcParts.Memory = objPart.Memory;
-    //             this.pcPartsChanged.next(this.pcParts);
-    //             break;
-
-    //         case PCPART_STORAGE:
-    //             this.pcParts.Storage = objPart.Storage;
-    //             this.pcPartsChanged.next(this.pcParts);
-    //             break;
-
-    //         case PCPART_VIDEOCARD:
-    //             this.pcParts.Videocard = objPart.Videocard;
-    //             this.pcPartsChanged.next(this.pcParts);
-    //             break;
-
-    //         case PCPART_CASE:
-    //             this.pcParts.Case = objPart.Case;
-    //             this.pcPartsChanged.next(this.pcParts);
-    //             break;
-
-    //         case PCPART_POWERSUPPLY:
-    //             this.pcParts.Powersupply = objPart.Powersupply;
-    //             this.pcPartsChanged.next(this.pcParts);
-    //             break;
-    //     }
-
-    // }
-
-    // storeAllPCparts(objParts:PCParts){
-    //     this.pcParts = objParts;
-    //     this.pcPartsChanged.next(this.pcParts);
-    // }
-    //todo make a common model or type for these parts
-    setBuilld(objParts:CPU | CPUCooler | MotherBoard | Memory | Storage | Videocard | Case | Powersupply){
+    setBuilld(objParts: AvailableComponentTypes) {
 
         const objBuild = new BuildDetails(objParts.ComponentHead.ComponentHeadID, 1, objParts, this.currentBuildHeadID)
         objBuild.ComponentHead = objParts.ComponentHead;
         this.storeBuild(objBuild)
     }
 
-    // getPCparts(){
-    //     return this.pcParts;
-    // }
-
-    getBuild(){
+    getBuild() {
         return this.build;
     }
 
-    storeBuild(objPart:BuildDetails){
-        if(!this.build){
+    storeBuild(objPart: BuildDetails) {
+        if (!this.build) {
             this.build = []
         }
-        this.build = [...this.build.filter(a => a.ComponentHead.ComponentTypeID != objPart.ComponentHead.ComponentTypeID), objPart ]
+        this.build = [...this.build.filter(a => a.ComponentHead.ComponentTypeID != objPart.ComponentHead.ComponentTypeID), objPart]
         this.buildChanged.next(this.build)
     }
 
-    updateBuild(lstBuildDetails: BuildDetails[]){
+    updateBuild(lstBuildDetails: BuildDetails[]) {
         this.build = lstBuildDetails;
         this.buildChanged.next(this.build);
     }
 
-    get currentBuildHeadID(){
-        if(this._currentBuildHeadID){
+    get currentBuildHeadID() {
+        if (this._currentBuildHeadID) {
             return this._currentBuildHeadID;
         }
-        else{
+        else {
             return 0;
         }
     }
-    set currentBuildHeadID(val: number){
+    set currentBuildHeadID(val: number) {
         this._currentBuildHeadID = val;
     }
 
+    public executeCommand<K extends keyof BuildCommandMap>(key: K, commandData: BuildCommandMap[K]) {
+        const command = this.commandFactory.create(key, commandData);
+        this.commandService.execute(key, command);
+    }
 
+    public deletePart(item: BuildDetails): void {
+        this.executeCommand('remove-from-collection', { collection: this.build, element: item });
+      }
 
 }

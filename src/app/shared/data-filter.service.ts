@@ -191,7 +191,7 @@ export class DataFilterService {
   }
 
   async searchProductsAutoComplete(val: string){
-
+    val = val.split(" ").join(" & ")
     const searchResult = await this.supabaseService.supabase
     .rpc('component_search', {
       "searchval": val

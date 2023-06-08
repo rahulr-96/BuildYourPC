@@ -25,6 +25,7 @@ import { BuildDetails } from '../pcparts/build-details.model';
 import { ComponentHead } from './component-head.model';
 import { BuildHead } from '../pcparts/build-head.model';
 import { ComponentType } from './component-type.model';
+import { defer, from } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -49,22 +50,6 @@ export class DataStorageService {
   ) { }
 
 
-
-  // fetchCPU(){
-  //   return this.http
-  //     .get<CPU[]>('https://shoppingappapi-default-rtdb.asia-southeast1.firebasedatabase.app/cpu.json')
-  //     .pipe( map((cpus) => {
-  //         return cpus.map((cpu) => {
-  //           return {
-  //             ...cpu
-  //           };
-  //         });
-  //       }), tap((cpus) => {
-  //         this.cpuService.setCpus(cpus);
-  //       })
-  //     );
-  // }
-
   async fetchCPU() {
 
     const cpus = await this.supabaseService.supabase
@@ -77,6 +62,7 @@ export class DataStorageService {
     let lstcpus = cpus.data;
     this.cpuService.setCpus(lstcpus);
     return lstcpus
+    
   }
 
   // fetchCPUCooler(){
@@ -324,7 +310,7 @@ export class DataStorageService {
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData'));
 
-    this.getAllComponentTypes()
+    //this.getAllComponentTypes()
 
     if (userData) {
       let query = `build_headid, build_details (*, ComponentHead(*, ComponentType(*)))`

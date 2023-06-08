@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { AlertComponent } from "./alert/alert.component";
-import { DropdownDirective } from "./dropdown.directive";
 import { LoadingSpinnerComponent } from "./loading-spinner/loading-spinner.component";
 import { PlaceholderDirective } from "./placeholder/placeholder.directive";
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -33,7 +32,6 @@ import { ProductSearchComponent } from "../products/product-search/product-searc
         AlertComponent,
         LoadingSpinnerComponent,
         PlaceholderDirective,
-        DropdownDirective,
         CurrencyConverterPipe,
         DataTableWrapperComponent,
         DataTableFilter,
@@ -56,7 +54,6 @@ import { ProductSearchComponent } from "../products/product-search/product-searc
         AlertComponent,
         LoadingSpinnerComponent,
         PlaceholderDirective,
-        DropdownDirective,
         CurrencyConverterPipe,
         CommonModule,
         NgxPaginationModule,
