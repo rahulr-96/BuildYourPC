@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Observable, fromEvent, interval } from 'rxjs';
 import { Toast }from 'bootstrap';
 import { EventTypes } from '../models/event-types';
 import { take } from 'rxjs/operators';
+import { CommandService } from '../../command.service';
+
+export const toasterDelay = 5000;
 
 @Component({
   selector: 'app-toast',
@@ -25,13 +28,25 @@ export class ToastComponent implements OnInit {
   @Input()
   message!: string;
 
+  @Input()
+  undoable!: boolean;
+
   toast!: Toast;
+  
+  maxStyleWidth: string;
+
+  takeFourNumbers: Observable<number>;
+
+  delay = toasterDelay;
+
+  constructor(private commandService: CommandService){}
 
   ngOnInit() {
     this.show();
   }
 
   show() {
+
     this.toast = new Toast(
       this.toastEl.nativeElement,
       this.type === EventTypes.Error
@@ -39,7 +54,7 @@ export class ToastComponent implements OnInit {
             autohide: false,
           }
         : {
-            delay: 5000,
+            delay: this.delay,
           }
     );
 
@@ -48,10 +63,20 @@ export class ToastComponent implements OnInit {
       .subscribe(() => this.hide());
 
     this.toast.show();
+
+    // this.takeFourNumbers.subscribe(x =>{
+    //   this.maxStyleWidth = x + '%'
+    //   console.log(this.maxStyleWidth)
+    // } );
   }
 
   hide() {
     this.toast.dispose();
     this.disposeEvent.emit();
+  }
+
+  public onUndoClick(){
+    this.commandService.undo();
+    this.hide();
   }
 }

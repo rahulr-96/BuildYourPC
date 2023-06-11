@@ -19,6 +19,7 @@ import { ComponentHead } from "src/app/shared/component-head.model";
 import { ComponentType } from "src/app/shared/component-type.model";
 import { take } from "rxjs/operators";
 import { CommandService } from "src/app/shared/command.service";
+import { HistoryAction } from "src/app/history/model";
 
 @Component({
   selector: 'app-pcparts-list',
@@ -61,24 +62,13 @@ export class PCPartsListComponent implements OnDestroy {
 
   ngOnInit() {
 
-    //this.fetch();
-
-    //this._pcparts = this.pcPartsService.getPCparts();
     const tempbuild = this.pcPartsService.getBuild();
     this.checkBuild(tempbuild ?? [])
-    // this._build = [...tempbuild, ...this.checkBuild(tempbuild)] ;
     this.findTotal();
-
-    // this.subscription = this.pcPartsService.pcPartsChanged.subscribe(data => {
-    //   this._pcparts = data;
-    //   this.findTotal();
-    // })
 
     this.buildSubscription = this.pcPartsService.buildChanged.subscribe(data => {
       this._build = data
       this.checkBuild(data.slice())
-      //this._build =[...data, ...this.checkBuild(data.slice())] ;
-      //this.findTotal();
     })
 
     this.urlSub = this.uploadService.downloadURLChanges().subscribe(url => {
@@ -88,17 +78,19 @@ export class PCPartsListComponent implements OnDestroy {
       const myModal = new Modal(this.modalEl.nativeElement);
       myModal.show();
       this.downloadUrl = url;
+      console.log(this.downloadUrl)
       this.qrLoading = false;
       this.cdr.detectChanges();
       // this.showErrorAlert(this.downloadUrl);
     })
 
-    this.commandService.commandSuccess().subscribe(() => {
-      this.showToast(this.strToastContent)
+    this.commandService.commandSuccess().subscribe((data) => {
+      if(data.action === HistoryAction.Execute){
+        this.showToast(this.strToastContent)
+      }
       this.updateHistoryTable();
       this.pcPartsService.updateBuild(this.pcPartsService.getBuild())
     })
-
   }
 
   addPcPart(rowIndex: number) {
@@ -142,12 +134,7 @@ export class PCPartsListComponent implements OnDestroy {
     }
   }
 
-  // fetch() {
-  //   this.dataStorageService.fetchPCParts();
-  // }
-
   ngOnDestroy(): void {
-    //this.subscription?.unsubscribe();
     this.urlSub.unsubscribe();
     this.buildSubscription.unsubscribe();
   }
@@ -187,55 +174,8 @@ export class PCPartsListComponent implements OnDestroy {
 
   }
 
-  // removePart(rowIndex: number) {
-  //   switch (rowIndex) {
-  //     case 1:
-  //       this._pcparts.CPU = null;
-  //       this.pcPartsService.storePCparts(PCPART_CPU, this._pcparts);
-  //       this.showToast(PCPART_CPU)
-  //       break;
-  //     case 2:
-  //       this._pcparts.CPUCooler = null;
-  //       this.pcPartsService.storePCparts(PCPART_CPUCOOLER, this._pcparts);
-  //       this.showToast(PCPART_CPUCOOLER)
-  //       break;
-  //     case 3:
-  //       this._pcparts.MotherBoard = null;
-  //       this.pcPartsService.storePCparts(PCPART_MOTHERBOARD, this._pcparts);
-  //       this.showToast(PCPART_MOTHERBOARD)
-  //       break;
-  //     case 4:
-  //       this._pcparts.Memory = null;
-  //       this.pcPartsService.storePCparts(PCPART_MEMORY, this._pcparts);
-  //       this.showToast(PCPART_MEMORY)
-  //       break;
-  //     case 5:
-  //       this._pcparts.Storage = null;
-  //       this.pcPartsService.storePCparts(PCPART_STORAGE, this._pcparts);
-  //       this.showToast(PCPART_STORAGE)
-  //       break;
-  //     case 6:
-  //       this._pcparts.Videocard = null;
-  //       this.pcPartsService.storePCparts(PCPART_VIDEOCARD, this._pcparts);
-  //       this.showToast(PCPART_VIDEOCARD)
-  //       break;
-  //     case 7:
-  //       this._pcparts.Case = null;
-  //       this.pcPartsService.storePCparts(PCPART_CASE, this._pcparts);
-  //       this.showToast(PCPART_CASE)
-  //       break;
-  //     case 8:
-  //       this._pcparts.Powersupply = null;
-  //       this.pcPartsService.storePCparts(PCPART_POWERSUPPLY, this._pcparts);
-  //       this.showToast(PCPART_POWERSUPPLY)
-  //       break;
-  //   }
-
-  //   this.findTotal();
-  // }
-
   showToast(pcPart: string) {
-    this.toastService.showInfoToast('PC Build', pcPart + ' Removed');
+    this.toastService.showInfoToast('PC Build', pcPart + ' Removed', true);
   }
 
   download() {
@@ -243,13 +183,18 @@ export class PCPartsListComponent implements OnDestroy {
     this.downloadUrl = undefined;
     this.cdr.detectChanges();
     let doc = new jsPDF();
-    autoTable(doc, { html: '#table' });
+    // autoTable(doc, { html: '#table' });
+    autoTable(doc, { 
+      head: [['Component', 'Selection', 'Price']],
+      body: this._build.map(object => {
+        return [object.ComponentHead.ComponentType.ComponentTypeName, object.ComponentHead.ComponentName, object.ComponentHead.Price];
+      }),
+    });
     let pdf = doc.output("blob");
     this.upload(pdf);
   }
 
   upload(blob: Blob): void {
-    // const file = this.selectedFiles.item(0);
     var file = new File([blob], "name.pdf");
     let currentFileUpload = new FileUpload(file);
     this.uploadService.pushFileToStorage(currentFileUpload);
@@ -263,20 +208,6 @@ export class PCPartsListComponent implements OnDestroy {
     this.displayStyle = "none";
   }
 
-  // private showErrorAlert(message: string){
-  //   const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(QrModalComponent);
-
-  //   const hostViewContainerRef = this.alertHost.viewContainerRef;
-  //   hostViewContainerRef.clear();
-
-  //   const componentRef =  hostViewContainerRef.createComponent(alertCmpFactory);
-
-  //   componentRef.instance.qrData = message;
-  //   this.closeSub = componentRef.instance.close.subscribe(() => {
-  //     this.closeSub.unsubscribe();
-  //     hostViewContainerRef.clear();
-  //   })
-  // }
 
   checkBuild(lstBuildDetails: BuildDetails[]) {
 
@@ -299,9 +230,7 @@ export class PCPartsListComponent implements OnDestroy {
 
     const item = this._build.find(x => x.ComponentHead.ComponentHeadID ==  componentHead.ComponentHeadID)
     this.pcPartsService.deletePart(item);
-    //this.pcPartsService.updateBuild(this._build.filter(a => a.ComponentHead.ComponentTypeID != componentHead.ComponentType.ComponentTypeID && a.ComponentHead.ComponentName != ''))
     this.findTotal();
-    // this.showToast(componentHead.ComponentName)
 
   }
 
@@ -345,13 +274,11 @@ export class PCPartsListComponent implements OnDestroy {
   }
 
   private updateHistoryTable(): void {
-    // this.undoEntries = [...this.commandService.getUndoEntries()].reverse();
-    // this.redoEntries = [...this.commandService.getRedoEntries()].reverse();
     console.log('undoEntries', this.commandService.getUndoEntries())
   }
 
-  public onUndoClick(){
-    this.commandService.undo();
+  public downloadPDF(){
+    open(this.downloadUrl);
   }
 
 }

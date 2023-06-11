@@ -19,11 +19,12 @@ export class ToastService {
    * @param title Toast title
    * @param message Toast message
    */
-  showSuccessToast(title: string, message: string) {
+  showSuccessToast(title: string, message: string, undoable: boolean) {
     this._toastEvents.next({
       message,
       title,
       type: EventTypes.Success,
+      undoable
     });
   }
 
@@ -32,11 +33,12 @@ export class ToastService {
    * @param title Toast title
    * @param message Toast message
    */
-  showInfoToast(title: string, message: string) {
+  showInfoToast(title: string, message: string, undoable: boolean) {
     this._toastEvents.next({
       message,
       title,
       type: EventTypes.Info,
+      undoable
     });
   }
 
@@ -45,11 +47,12 @@ export class ToastService {
    * @param title Toast title
    * @param message Toast message
    */
-  showWarningToast(title: string, message: string) {
+  showWarningToast(title: string, message: string, undoable: boolean) {
     this._toastEvents.next({
       message,
       title,
       type: EventTypes.Warning,
+      undoable
     });
   }
 
@@ -58,11 +61,12 @@ export class ToastService {
    * @param title Toast title
    * @param message Toast message
    */
-  showErrorToast(title: string, message: string) {
+  showErrorToast(title: string, message: string, undoable: boolean) {
     this._toastEvents.next({
       message,
       title,
       type: EventTypes.Error,
+      undoable
     });
   }
 }

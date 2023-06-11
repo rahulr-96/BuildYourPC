@@ -22,7 +22,7 @@ export class PCPartsResolverService implements Resolve<BuildDetails[]> {
         else{
             if(JSON.parse(localStorage.getItem('userData'))){
                 this.dataStorageService.getAllComponentTypes();
-                return this.dataStorageService.getBuild();
+                return this.pcPartsService.getBuild();
             }
             if(!this.pcPartsService.lstComponentType){
                 this.dataStorageService.getAllComponentTypes();

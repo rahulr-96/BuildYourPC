@@ -26,6 +26,7 @@ export {
 import { RouterModule } from '@angular/router';
 import { RangeSliderComponent } from "./range-slider/range-slider.component";
 import { ProductSearchComponent } from "../products/product-search/product-search.component";
+import { AppProgressBar } from "./progress-bar/progress-bar.component";
 
 @NgModule({
     declarations:[
@@ -40,7 +41,8 @@ import { ProductSearchComponent } from "../products/product-search/product-searc
         ToasterComponent,
         ProductListComponent,
         RangeSliderComponent,
-        ProductSearchComponent
+        ProductSearchComponent,
+        AppProgressBar
     ],
     imports:[
         CommonModule,
@@ -66,7 +68,8 @@ import { ProductSearchComponent } from "../products/product-search/product-searc
         ProductListComponent,
         RouterModule,
         RangeSliderComponent,
-        ProductSearchComponent
+        ProductSearchComponent,
+        AppProgressBar
     ],
 })
 export class SharedModule{}

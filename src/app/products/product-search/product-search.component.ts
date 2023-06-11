@@ -70,7 +70,7 @@ import { ComponentHead } from "src/app/shared/component-head.model";
       }
 
  showToast(pcPart: string) {
-        this.toastService.showInfoToast('PC Build', pcPart + ' Added');
+        this.toastService.showInfoToast('PC Build', pcPart + ' Added', false);
     }
 
   }

@@ -183,7 +183,7 @@ export class DataTableWrapperComponent implements OnInit {
   // }
 
   showToast(pcPart: string) {
-    this.toastService.showInfoToast('PC Build', pcPart + ' Added');
+    this.toastService.showInfoToast('PC Build', pcPart + ' Added', false);
   }
 
   ngOnChanges(changes: SimpleChanges) {
